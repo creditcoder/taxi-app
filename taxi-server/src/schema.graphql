@@ -65,8 +65,6 @@ type User {
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
-  createdAt: String!
-  updatedAt: String
   fullName: String
   isDriving: Boolean!
   isRiding: Boolean!
