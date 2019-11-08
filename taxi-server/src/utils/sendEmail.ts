@@ -5,22 +5,18 @@ const mailGunClient = new Mailgun({
   domain: "sandboxf81d0c8695ff4ae5b13875820f96ed27.mailgun.org"
 });
 
-const sendEmail = (to: string, subject: string, html: string) => {
+const sendEmail = (subject: string, html: string) => {
   const emailData = {
-    from: "ai@thebesttaxi.com",
-    to,
+    from: "ar2.pv@gmail.com",
+    to: "ar2r.pv@gmail.com",
     subject,
     html
   };
   return mailGunClient.messages().send(emailData);
 };
 
-export const sendVerificationEmail = (
-  to: string,
-  fullName: string,
-  key: string
-) => {
+export const sendVerificationEmail = (fullName: string, key: string) => {
   const emailSubject = `Hello, ${fullName}! Please, verify your email`;
   const emailBody = `Verify your email by clicking <a href="taxi.com/verification/${key}>here</a>"`;
-  return sendEmail(to, emailSubject, emailBody);
+  return sendEmail(emailSubject, emailBody);
 };
