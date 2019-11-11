@@ -1,50 +1,62 @@
 import Chat from "../../../entities/Chat";
+import Message from "../../../entities/Message";
 import User from "../../../entities/User";
-import { GetChatQueryArgs, GetChatResponse } from "../../../types/graph";
+import {
+  SendChatMessageMutationArgs,
+  SendChatMessageResponse
+} from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 import checkAuthResolver from "../../../utils/authResolver";
 
 const resolvers: Resolvers = {
-  Query: {
-    GetChat: checkAuthResolver(
-      async (_, args: GetChatQueryArgs, { req }): Promise<GetChatResponse> => {
+  Mutation: {
+    SendChatMessage: checkAuthResolver(
+      async (
+        _,
+        args: SendChatMessageMutationArgs,
+        { req }
+      ): Promise<SendChatMessageResponse> => {
         const user: User = req.user;
         try {
-          const chat = await Chat.findOne(
-            {
-              id: args.chatId
-            },
-            { relations: ["messages"] }
-          );
+          const chat = await Chat.findOne({
+            id: args.chatId
+          });
           if (chat) {
             if (chat.passengerId === user.id || chat.driverId === user.id) {
+              const message = await Message.create({
+                text: args.text,
+                chat,
+                user
+              });
               return {
                 ok: true,
                 error: null,
-                chat
+                message
               };
             } else {
               return {
                 ok: false,
                 error: "You are not participant of this chat",
-                chat: null
+                message: null
               };
             }
           } else {
             return {
               ok: false,
               error: "Chat was not found",
-              chat: null
+              message: null
             };
           }
         } catch (e) {
           return {
             ok: false,
             error: e.message,
-            chat: null
+            message: null
           };
         }
       }
     )
   }
 };
+
+export default resolvers;
