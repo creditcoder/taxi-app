@@ -4,6 +4,7 @@ import { createGlobalStyle } from "./typed-components";
 // tslint:disable-next-line
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Maven+Pro');
+  @import url('https://fonts.googleapis.com/css?family=Jura&display=swap');
   ${reset};
   * {
     box-sizing: border-box;
