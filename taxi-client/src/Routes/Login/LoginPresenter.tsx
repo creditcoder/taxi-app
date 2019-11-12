@@ -1,5 +1,6 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import Helmet from "react-helmet";
+import { Link, RouteComponentProps } from "react-router-dom";
 import bgImage from "../../images/bg.jpg";
 import styled from "../../typed-components";
 
@@ -66,27 +67,33 @@ const SocialLink = styled.span`
   font-size: 20px;
 `;
 
-interface IProps {
-  isLoggedIn: string;
-}
+// tslint:disable-next-line:no-empty-interface
+interface IProps {}
 
 const LoginPresenter: React.FC<RouteComponentProps<IProps>> = () => (
   <Container>
+    <Helmet>
+      <title>Login | Taxi</title>
+    </Helmet>
     <Header>
       <Logo>
         <Title>Taxi</Title>
       </Logo>
     </Header>
     <Footer>
-      <PhoneLogin>
-        <Subtitle>Start moving with Taxi</Subtitle>
-        <FakeInput>
-          +38 <Grey>Enter your mobile phone</Grey>
-        </FakeInput>
+      <Link to={"/phone-login"}>
+        <PhoneLogin>
+          <Subtitle>Start moving with Taxi</Subtitle>
+          <FakeInput>
+            +38 <Grey>Enter your mobile phone</Grey>
+          </FakeInput>
+        </PhoneLogin>
+      </Link>
+      <Link to={"/social-login"}>
         <SocialLogin>
           <SocialLink>Or connect with social</SocialLink>
         </SocialLogin>
-      </PhoneLogin>
+      </Link>
     </Footer>
   </Container>
 );
