@@ -1,15 +1,15 @@
 import reset from "styled-reset";
-import { injectGlobal } from "./typed-components";
+import { createGlobalStyle } from "./typed-components";
 
 // tslint:disable-next-line
-injectGlobal`
+const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Maven+Pro');
   ${reset};
   * {
     box-sizing: border-box;
   }
   body {
-    font-family: -apple-system,system-ui,BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   a {
     color: inherit;
@@ -23,3 +23,5 @@ injectGlobal`
     }
   }
 `;
+
+export default GlobalStyles;
