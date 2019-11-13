@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from "react";
 import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
@@ -65,15 +66,15 @@ const Button = styled.a`
   right: 30px;
   cursor: pointer;
   margin: 5px 0 10px 0;
-  transition: .2s;
-  &:hover{
+  transition: 0.2s;
+  &:hover {
     margin: 0 0 15px 0;
   }
 `;
 
 const CountrySelect = styled.select`
   font-size: 16px;
-  color: '#2c3e50';
+  color: "#2c3e50";
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -82,20 +83,25 @@ const CountrySelect = styled.select`
   margin-bottom: 20px;
   margin-right: 10px;
   max-width: 210px;
-  font-family: 'Jura', sans-serif;
+  font-family: "Jura", sans-serif;
 `;
 
 const CountryOption = styled.option`
-  &:nth-child(odd){
+  &:nth-child(odd) {
     background-color: ${props => props.theme.violetColor};
     color: white;
   }
-  &:nth-child(even){
-    color: ${props => props.theme.violetColor};;
+  &:nth-child(even) {
+    color: ${props => props.theme.violetColor};
   }
 `;
 
-const PhoneLoginPresenter = () => (
+interface IProps {
+  countryCode: string;
+  phoneNumber: string;
+}
+
+const PhoneLoginPresenter: React.FC<IProps> = () => (
   <Layout>
     <FlexContainer>
       <Container>
@@ -116,14 +122,14 @@ const PhoneLoginPresenter = () => (
           <Subtitle>Number:</Subtitle>
           <Input width="170px" type="number" placeholder={"050 000 00 00"} />
           <Button>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="48" 
-              height="48" 
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
               viewBox="0 0 24 24"
               fill="#5b0c75"
             >
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.218 19l-1.782-1.75 5.25-5.25-5.25-5.25 1.782-1.75 6.968 7-6.968 7z"/>
+              <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.218 19l-1.782-1.75 5.25-5.25-5.25-5.25 1.782-1.75 6.968 7-6.968 7z" />
             </svg>
           </Button>
         </Form>
@@ -132,5 +138,10 @@ const PhoneLoginPresenter = () => (
     </FlexContainer>
   </Layout>
 );
+
+PhoneLoginPresenter.propTypes = {
+  countryCode: PropTypes.string.isRequired,
+  phoneNumber: PropTypes.string.isRequired
+}
 
 export default PhoneLoginPresenter;
