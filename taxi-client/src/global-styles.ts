@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Jura', sans-serif;
   }
   a {
     color: inherit;
@@ -22,9 +22,6 @@ const GlobalStyles = createGlobalStyle`
     &:active {
       outline: none;
     }
-  }
-  h1,h2,h3,h4,h5,h6{
-    font-family: 'Jura', sans-serif;
   }
 `;
 export default GlobalStyles;

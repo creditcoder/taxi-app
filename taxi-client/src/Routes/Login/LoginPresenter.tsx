@@ -6,11 +6,11 @@ import styled from "../../typed-components";
 
 const Container = styled.div`
   height: 100vh;
+  background: url(${bgImage}) center no-repeat;
 `;
 
 const Header = styled.header`
   height: 70%;
-  background: url(${bgImage}) center no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,16 +35,24 @@ const Logo = styled.div`
 const Title = styled.h1``;
 
 const Footer = styled.div`
+  width: 80%;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
+    0 -14px 28px rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background-color: white;
   text-align: center;
 `;
 
 const Subtitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
+  color: ${props => props.theme.violetColor};
 `;
 
 const FakeInput = styled.div`
-  margin: 50px 0;
-  font-size: 25px;
+  margin: 30px 0 15px 0;
+  font-size: 20px;
   font-weight: 300;
 `;
 
@@ -57,14 +65,27 @@ const Grey = styled.span`
   margin-left: 10px;
 `;
 
-const SocialLogin = styled.div`
-  border-top: 1px solid ${props => props.theme.greyColor};
-  padding: 30px 20px;
+const SocialLogin = styled.button`
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  transition: .2s;
+  &:hover{
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+  box-shadow: 0 5px 10px ${props => props.theme.violetColor};
+  border: 2px solid ${props => props.theme.violetColor};
+  border-radius: 20px;
+  padding: 15px 10px;
+  background-color: transparent;
 `;
 
 const SocialLink = styled.span`
-  color: ${props => props.theme.blueColor};
-  font-size: 20px;
+  font-family: 'Jura', sans-serif;
+  color: ${props => props.theme.violetColor};
+  font-weight: 600;
+  font-size: 16px;
 `;
 
 // tslint:disable-next-line:no-empty-interface
