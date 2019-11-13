@@ -2,8 +2,7 @@ import React from "react";
 import styled from "../../typed-components";
 
 const Container = styled.input`
-  
-  font-family: 'Jura', sans-serif;
+  font-family: "Jura", sans-serif;
   border: none;
   border-bottom: 2px solid ${props => props.theme.greyColor};
   font-size: 18px;
@@ -25,6 +24,14 @@ const Container = styled.input`
   }
 `;
 
-const Input = ({ placeholder, type, width }) => <Container width={width} type={type} placeholder={placeholder} />;
+interface IProps {
+  placeholder: string;
+  type: string;
+  width: string;
+}
+
+const Input = ({ placeholder, type, width }: IProps) => (
+  <Container width={width} type={type} placeholder={placeholder} />
+);
 
 export default Input;

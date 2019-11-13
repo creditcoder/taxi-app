@@ -19,7 +19,7 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeIn} 1s linear;
+  animation: ${fadeIn} 1s ease;
   border-radius: 50px;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
     0 -14px 28px rgba(255, 255, 255, 0.22);
@@ -35,6 +35,7 @@ const Footer = styled.div`
   width: 80%;
   max-width: 700px;
   margin: 0 auto;
+  animation: ${fadeIn} 1s ease-in-out;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
     0 -14px 28px rgba(255, 255, 255, 0.22);
   border-radius: 10px;
