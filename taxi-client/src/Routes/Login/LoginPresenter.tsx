@@ -1,13 +1,8 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
-import bgImage from "../../images/bg.jpg";
+import { Layout } from "../../global-styles";
 import styled from "../../typed-components";
-
-const Container = styled.div`
-  height: 100vh;
-  background: url(${bgImage}) center no-repeat;
-`;
 
 const Header = styled.header`
   height: 70%;
@@ -92,7 +87,7 @@ const SocialLink = styled.span`
 interface IProps {}
 
 const LoginPresenter: React.FC<RouteComponentProps<IProps>> = () => (
-  <Container>
+  <Layout>
     <Helmet>
       <title>Login | Taxi</title>
     </Helmet>
@@ -116,7 +111,7 @@ const LoginPresenter: React.FC<RouteComponentProps<IProps>> = () => (
         </SocialLogin>
       </Link>
     </Footer>
-  </Container>
+  </Layout>
 );
 
 export default LoginPresenter;
