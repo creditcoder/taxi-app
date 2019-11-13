@@ -14,18 +14,18 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 `;
 
 const Container = styled.div`
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: 330px;
   background-color: white;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
     0 -14px 28px rgba(255, 255, 255, 0.22);
   padding: 50px 20px;
   border-radius: 10px;
+  text-align: center;
 `;
 
 const BackArrowLeftTop = styled(BackArrow)`
@@ -33,12 +33,23 @@ const BackArrowLeftTop = styled(BackArrow)`
   top: 20px;
   left: 20px;
 `;
+
 const Title = styled.h2`
+  color: ${props => props.theme.violetColor};
   font-size: 25px;
-  margin-bottom: 40px;
+  margin: 20px 0 40px 0;
+  text-align: center;
 `;
 
-const Form = styled.form``;
+const Subtitle = styled.label`
+  color: ${props => props.theme.violetColor};
+  font-size: 16px;
+  margin-right: 5px;
+`;
+
+const Form = styled.form`
+  display: inline-block;
+`;
 
 const Button = styled.a`
   box-shadow: 0 5px 10px ${props => props.theme.violetColor};
@@ -60,8 +71,8 @@ const Button = styled.a`
   }
 `;
 
-const CountrySelect = styled.option`
-  font-size: 20px;
+const CountrySelect = styled.select`
+  font-size: 16px;
   color: '#2c3e50';
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -69,8 +80,20 @@ const CountrySelect = styled.option`
   background-color: white;
   border: 0;
   margin-bottom: 20px;
-  width: 90%;
-`
+  margin-right: 10px;
+  max-width: 210px;
+  font-family: 'Jura', sans-serif;
+`;
+
+const CountryOption = styled.option`
+  &:nth-child(odd){
+    background-color: ${props => props.theme.violetColor};
+    color: white;
+  }
+  &:nth-child(even){
+    color: ${props => props.theme.violetColor};;
+  }
+`;
 
 const PhoneLoginPresenter = () => (
   <Layout>
@@ -81,15 +104,17 @@ const PhoneLoginPresenter = () => (
         </Helmet>
         <BackArrowLeftTop backTo={"/"} />
         <Title>Enter your mobile number</Title>
+        <Subtitle>Select country:</Subtitle>
         <CountrySelect>
           {countries.map((country, index) => (
-            <option key={index} value={country.dial_code}>
+            <CountryOption key={index} value={country.dial_code}>
               {country.flag} {country.name} ({country.dial_code})
-            </option>
+            </CountryOption>
           ))}
         </CountrySelect>
         <Form>
-          <Input placeholder={"050 000 00 00"} />
+          <Subtitle>Number:</Subtitle>
+          <Input width="170px" type="number" placeholder={"050 000 00 00"} />
           <Button>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

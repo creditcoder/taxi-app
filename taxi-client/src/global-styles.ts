@@ -24,7 +24,8 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
   input,
-  button {
+  button,
+  select {
     &:focus,
     &:active {
       outline: none;
