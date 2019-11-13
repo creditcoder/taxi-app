@@ -9,8 +9,8 @@ interface IState {
 
 class PhoneLoginContainer extends React.Component<IProps, IState> {
   public state = {
-    countryCode: "+38",
-    phoneNumber: "0500000000"
+    countryCode: "+380",
+    phoneNumber: ""
   };
 
   public render() {
