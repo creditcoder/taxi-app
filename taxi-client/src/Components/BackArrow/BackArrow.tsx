@@ -14,14 +14,13 @@ interface IProps {
 const BackArrow: React.FC<IProps> = ({ backTo, className }) => (
   <Container className={className}>
     <Link to={backTo}>
-      <svg
-        width="24"
-        height="24"
-        xmlns="http://www.w3.org/2000/svg"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="24" 
+        height="24" 
+        viewBox="0 0 24 24"
       >
-        <path d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z" />
+        <path d="M17.026 22.957c10.957-11.421-2.326-20.865-10.384-13.309l2.464 2.352h-9.106v-8.947l2.232 2.229c14.794-13.203 31.51 7.051 14.794 17.675z"/>
       </svg>
     </Link>
   </Container>
