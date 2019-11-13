@@ -1,6 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
+import { fadeIn } from "../../animations";
 import { Layout } from "../../global-styles";
 import styled from "../../typed-components";
 
@@ -18,6 +19,7 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: ${fadeIn} 1s linear;
   border-radius: 50px;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
     0 -14px 28px rgba(255, 255, 255, 0.22);
@@ -64,8 +66,8 @@ const SocialLogin = styled.button`
   cursor: pointer;
   margin-top: 5px;
   margin-bottom: 20px;
-  transition: .2s;
-  &:hover{
+  transition: 0.2s;
+  &:hover {
     margin-top: 0;
     margin-bottom: 25px;
   }
@@ -77,7 +79,7 @@ const SocialLogin = styled.button`
 `;
 
 const SocialLink = styled.span`
-  font-family: 'Jura', sans-serif;
+  font-family: "Jura", sans-serif;
   color: ${props => props.theme.violetColor};
   font-weight: 600;
   font-size: 16px;

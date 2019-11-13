@@ -54,11 +54,23 @@ const Button = styled.a`
   right: 30px;
   cursor: pointer;
   margin: 5px 0 10px 0;
-  transition: .2s
+  transition: .2s;
   &:hover{
     margin: 0 0 15px 0;
   }
 `;
+
+const CountrySelect = styled.option`
+  font-size: 20px;
+  color: '#2c3e50';
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  border: 0;
+  margin-bottom: 20px;
+  width: 90%;
+`
 
 const PhoneLoginPresenter = () => (
   <Layout>
@@ -69,13 +81,13 @@ const PhoneLoginPresenter = () => (
         </Helmet>
         <BackArrowLeftTop backTo={"/"} />
         <Title>Enter your mobile number</Title>
-        <select>
+        <CountrySelect>
           {countries.map((country, index) => (
             <option key={index} value={country.dial_code}>
               {country.flag} {country.name} ({country.dial_code})
             </option>
           ))}
-        </select>
+        </CountrySelect>
         <Form>
           <Input placeholder={"050 000 00 00"} />
           <Button>
