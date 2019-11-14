@@ -7,7 +7,7 @@ import checkAuthResolver from "../../../utils/authResolver";
 
 const resolvers: Resolvers = {
   Query: {
-    GetNearbyRides: checkAuthResolver(
+    GetNearbyRide: checkAuthResolver(
       async (_, __, { req }): Promise<GetNearbyRideResponse> => {
         const user: User = req.user;
         if (user.isDriving) {
