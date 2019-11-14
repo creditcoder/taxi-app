@@ -1,4 +1,5 @@
 import React from "react";
+import { fadeIn } from "../../animations";
 import bgImage from "../../images/bg.jpg";
 import styled from "../../typed-components";
 
@@ -19,6 +20,7 @@ const CenteredFlex = styled.div`
 `;
 
 const VisibleContainer = styled.div`
+  animation: ${fadeIn} 1s ease-in-out;
   position: relative;
   width: 100%;
   min-height: ${props => (props.minHeight ? props.minHeight : "none")};
