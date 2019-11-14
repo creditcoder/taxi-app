@@ -8,9 +8,29 @@ interface IState {
 }
 
 class PhoneLoginContainer extends React.Component<IProps, IState> {
-  public state = {
-    countryCode: "+380",
-    phoneNumber: ""
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      countryCode: "+380",
+      phoneNumber: ""
+    };
+  }
+
+  public onInputChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement
+  > = e => {
+    const {
+      target: { name, value }
+    } = e;
+    this.setState(({
+      [name]: value
+    } as unknown) as IState);
+  };
+
+  public onSubmit: React.FormEventHandler<HTMLFontElement> = e => {
+    e.preventDefault();
+    const { countryCode, phoneNumber } = this.state;
+    console.log(countryCode, phoneNumber);
   };
 
   public render() {
@@ -19,6 +39,8 @@ class PhoneLoginContainer extends React.Component<IProps, IState> {
       <PhoneLoginPresenter
         countryCode={countryCode}
         phoneNumber={phoneNumber}
+        onInputChange={this.onInputChange}
+        onSubmit={this.onSubmit}
       />
     );
   }

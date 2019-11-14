@@ -3,7 +3,6 @@ import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
 import styled from "../../typed-components";
 import { Layout } from "../../global-styles";
-import bgImage from "../../images/bg.jpg";
 
 const FlexContainer = styled.div`
   width: 80%;

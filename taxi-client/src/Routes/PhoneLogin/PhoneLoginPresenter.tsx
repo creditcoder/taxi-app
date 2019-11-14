@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
@@ -99,11 +98,17 @@ const CountryOption = styled.option`
 interface IProps {
   countryCode: string;
   phoneNumber: string;
+  onInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  onSubmit: (e: React.FormEvent<HTMLFontElement>) => void;
 }
 
 const PhoneLoginPresenter: React.FC<IProps> = ({
   countryCode,
-  phoneNumber
+  phoneNumber,
+  onInputChange,
+  onSubmit
 }) => (
   <Layout>
     <FlexContainer>
@@ -114,17 +119,27 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
         <BackArrowLeftTop backTo={"/"} />
         <Title>Enter your mobile number</Title>
         <Subtitle>Select country:</Subtitle>
-        <CountrySelect value={countryCode}>
+        <CountrySelect
+          name="countryCode"
+          value={countryCode}
+          onChange={onInputChange}
+        >
           {countries.map((country, index) => (
             <CountryOption key={index} value={country.dial_code}>
               {country.flag} {country.name} ({country.dial_code})
             </CountryOption>
           ))}
         </CountrySelect>
-        <Form>
+        <Form onSubmit={onSubmit}>
           <Subtitle>Number:</Subtitle>
-          <Input width="170px" type="number" placeholder={"050 000 00 00"} value={phoneNumber}/>
-          <Button>
+          <Input
+            onChange={onInputChange}
+            name="phoneNumber"
+            width="170px"
+            placeholder={"50 123 45 67"}
+            value={phoneNumber}
+          />
+          <Button onClick={onSubmit}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -141,10 +156,5 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
     </FlexContainer>
   </Layout>
 );
-
-PhoneLoginPresenter.propTypes = {
-  countryCode: PropTypes.string.isRequired,
-  phoneNumber: PropTypes.string.isRequired
-};
 
 export default PhoneLoginPresenter;
