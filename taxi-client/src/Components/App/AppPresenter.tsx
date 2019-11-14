@@ -11,7 +11,7 @@ import Places from "../../Routes/Places";
 import Ride from "../../Routes/Ride";
 import Settings from "../../Routes/Settings";
 import SocialLogin from "../../Routes/SocialLogin";
-import VerifyPhoneNumber from "../../Routes/VerifyPhoneNumber";
+import VerifyPhoneNumber from "../../Routes/VerifyPhone";
 
 interface IProps {
   isLoggedIn: boolean;
