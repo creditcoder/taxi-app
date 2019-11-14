@@ -1,5 +1,5 @@
 import React from "react";
-import { Mutation, MutationFn, MutationUpdaterFn } from "react-apollo";
+import { Mutation, MutationFn } from "react-apollo";
 import { toast } from "react-toastify";
 import {
   startPhoneVerification,
@@ -49,17 +49,20 @@ class PhoneLoginContainer extends React.Component<IProps, IState> {
     }
   };
 
-  public afterSubmit: MutationUpdaterFn = (cache, data) => {
-    console.log(data);
-  };
-
   public render() {
     const { countryCode, phoneNumber } = this.state;
     return (
       <PhoneSignInMutation
         mutation={PHONE_SIGN_IN}
         variables={{ phoneNumber: `${countryCode}${phoneNumber}` }}
-        update={this.afterSubmit}
+        onCompleted={data => {
+          const { StartPhoneVerification } = data;
+          if (StartPhoneVerification.ok) {
+            return;
+          } else {
+            toast.error(StartPhoneVerification.error);
+          }
+        }}
       >
         {(mutation, { loading }) => {
           this.phoneMutation = mutation;
