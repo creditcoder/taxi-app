@@ -2,7 +2,7 @@ import React from "react";
 import { Mutation, MutationFunction } from "react-apollo";
 import { toast } from "react-toastify";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { PHONE_SIGN_IN } from "./PhoneQueries";
+import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 // tslint:disable-next-line:no-empty-interface
 interface IProps {}
 interface IState {
