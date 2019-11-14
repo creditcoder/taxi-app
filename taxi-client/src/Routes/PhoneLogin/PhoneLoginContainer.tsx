@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 // tslint:disable-next-line:no-empty-interface
 interface IProps {}
@@ -30,7 +31,13 @@ class PhoneLoginContainer extends React.Component<IProps, IState> {
   public onSubmit: React.FormEventHandler<HTMLFontElement> = e => {
     e.preventDefault();
     const { countryCode, phoneNumber } = this.state;
-    console.log(countryCode, phoneNumber);
+    const phone = `${countryCode}${phoneNumber}`;
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
+    if (isValid) {
+      return;
+    } else {
+      toast.error("Phone is incorrect");
+    }
   };
 
   public render() {
