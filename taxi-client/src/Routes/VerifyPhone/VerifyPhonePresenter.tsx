@@ -15,20 +15,30 @@ const ExtendedInput = styled(Input)``;
 const ExtendedButton = styled(Button)`
   margin-top: 30px;
   border-radius: 10px;
-  transition: .2s;
-  &:hover{
+  transition: 0.2s;
+  &:hover {
     margin-top: 25px;
   }
 `;
 
-const VerifyPhonePresenter = () => (
+interface IProps {
+  key: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const VerifyPhonePresenter: React.FC<IProps> = ({ key, onChange }) => (
   <Container minHeight={"250px"} textAlign={"center"}>
     <Helmet>
       <title>Verify Phone | Taxi</title>
     </Helmet>
     <Header backTo={"/phone-login"} title={"Verify Phone Number"} />
     <Form>
-      <ExtendedInput value={""} placeholder={"Enter Verification Code"} />
+      <ExtendedInput
+        value={key}
+        placeholder={"Enter Verification Code"}
+        name={key}
+        onChange={onChange}
+      />
       <ExtendedButton value={"Submit"} onClick={null} />
     </Form>
   </Container>

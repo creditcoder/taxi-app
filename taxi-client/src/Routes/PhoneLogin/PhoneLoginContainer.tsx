@@ -58,13 +58,16 @@ class PhoneLoginContainer extends React.Component<RouteComponentProps, IState> {
         onCompleted={data => {
           const { StartPhoneVerification } = data;
           if (StartPhoneVerification.ok) {
+            toast.success("SMS Sent! Redirecting you...");
             const phone = `${countryCode}${phoneNumber}`;
-            history.push({
-              pathname: "/verify-phone",
-              state: {
-                phone
-              }
-            })
+            setTimeout(() => {
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone
+                }
+              });
+            }, 2000);
           } else {
             toast.error(StartPhoneVerification.error);
           }
