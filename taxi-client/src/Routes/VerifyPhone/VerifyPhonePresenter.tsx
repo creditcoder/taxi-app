@@ -1,7 +1,31 @@
 import React from "react";
+import Helmet from "react-helmet";
+import Button from "../../Components/Button";
+import Header from "../../Components/Header";
+import Input from "../../Components/Input";
+import styled from "../../typed-components";
+
+const Container = styled.div``;
+
+const Form = styled.form`
+  padding: 0 40px;
+`;
+
+const ExtendedInput = styled(Input)`
+  margin-bottom: 20px;
+`;
 
 const VerifyPhonePresenter = () => (
-  <div>Hello from verify phone Presenter</div>
+  <Container>
+    <Helmet>
+      <title>Verify Phone | Taxi</title>
+    </Helmet>
+    <Header backTo={"/phone-login"} title={"Verify Phone Number"} />
+    <Form>
+      <ExtendedInput value={""} placeholder={"Enter Verification Code"} />
+      <Button value={"Submit"} onClick={null}/>
+    </Form>
+  </Container>
 );
 
 export default VerifyPhonePresenter;
