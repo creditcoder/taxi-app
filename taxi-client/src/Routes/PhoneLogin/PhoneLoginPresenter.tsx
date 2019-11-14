@@ -98,6 +98,7 @@ const CountryOption = styled.option`
 interface IProps {
   countryCode: string;
   phoneNumber: string;
+  loading: boolean;
   onInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
