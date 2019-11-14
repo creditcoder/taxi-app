@@ -27,7 +27,7 @@ const LoggedOutRoutes: React.FC = () => (
   <Switch>
     <Route path={"/"} exact={true} component={Login} />
     <Route path={"/phone-login"} component={PhoneLogin} />
-    <Route path={"/verify-phone/:number"} component={VerifyPhoneNumber} />
+    <Route path={"/verify-phone"} component={VerifyPhoneNumber} />
     <Route path={"/social-login"} component={SocialLogin} />
     <Redirect from={"*"} to={"/"} />
   </Switch>

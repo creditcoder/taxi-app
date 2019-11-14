@@ -1,5 +1,6 @@
 import React from "react";
 import { Mutation, MutationFn } from "react-apollo";
+import { RouteComponentProps } from "react-router";
 import { toast } from "react-toastify";
 import {
   startPhoneVerification,
@@ -7,8 +8,6 @@ import {
 } from "../../types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
-// tslint:disable-next-line:no-empty-interface
-interface IProps {}
 interface IState {
   countryCode: string;
   phoneNumber: string;
@@ -18,7 +17,7 @@ class PhoneSignInMutation extends Mutation<
   startPhoneVerification,
   startPhoneVerificationVariables
 > {}
-class PhoneLoginContainer extends React.Component<IProps, IState> {
+class PhoneLoginContainer extends React.Component<RouteComponentProps, IState> {
   public phoneMutation: MutationFn;
 
   public state = {
@@ -50,6 +49,7 @@ class PhoneLoginContainer extends React.Component<IProps, IState> {
   };
 
   public render() {
+    const { history } = this.props;
     const { countryCode, phoneNumber } = this.state;
     return (
       <PhoneSignInMutation
@@ -58,7 +58,13 @@ class PhoneLoginContainer extends React.Component<IProps, IState> {
         onCompleted={data => {
           const { StartPhoneVerification } = data;
           if (StartPhoneVerification.ok) {
-            return;
+            const phone = `${countryCode}${phoneNumber}`;
+            history.push({
+              pathname: "/verify-phone",
+              state: {
+                phone
+              }
+            })
           } else {
             toast.error(StartPhoneVerification.error);
           }

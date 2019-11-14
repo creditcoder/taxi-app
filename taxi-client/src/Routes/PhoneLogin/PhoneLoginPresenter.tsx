@@ -1,11 +1,11 @@
 import React from "react";
 import Helmet from "react-helmet";
+import { rotate } from "../../animations";
 import BackArrow from "../../Components/BackArrow";
 import Input from "../../Components/Input";
 import countries from "../../countries";
 import { Layout } from "../../global-styles";
-import styled, {css} from "../../typed-components";
-import { rotate } from "../../animations";
+import styled, { css } from "../../typed-components";
 
 const FlexContainer = styled.div`
   width: 80%;
@@ -53,8 +53,17 @@ const Form = styled.form`
 `;
 
 const Button = styled.a`
-  animation: ${props=>props.loading ? css`${rotate} 2s linear infinite` : "none"};
-  box-shadow: ${props=>props.loading ? "none" : css`0 5px 10px ${props => props.theme.violetColor}`};
+  animation: ${props =>
+    props.loading
+      ? css`
+          ${rotate} 2s linear infinite
+        `
+      : "none"};
+  box-shadow: ${props =>
+    props.loading
+      ? "none"
+      // tslint:disable-next-line:no-shadowed-variable
+      : css`0 5px 10px ${props => props.theme.violetColor}`};
   background-color: white;
   color: white;
   border: none;
@@ -67,7 +76,7 @@ const Button = styled.a`
   right: 30px;
   cursor: pointer;
   margin: 5px 0 10px 0;
-  transition: ${props=>props.loading ? "0" : "0.2s"};
+  transition: ${props => (props.loading ? "0" : "0.2s")};
   &:hover {
     margin: 0 0 15px 0;
   }
@@ -144,16 +153,17 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
             value={phoneNumber}
           />
           <Button onClick={onSubmit} loading={loading}>
-            {loading ? 
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="48" 
-                height="48" 
+            {loading ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
                 viewBox="0 0 24 24"
                 fill="#5b0c75"
               >
-                  <path d="M14 22c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-2-22c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 10c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-22 2c0 1.105.896 2 2 2s2-.895 2-2c0-1.104-.896-2-2-2s-2 .896-2 2zm19-9c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-14-14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2z"/>
-              </svg> : (
+                <path d="M14 22c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-2-22c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 10c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-22 2c0 1.105.896 2 2 2s2-.895 2-2c0-1.104-.896-2-2-2s-2 .896-2 2zm19-9c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-14-14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2z" />
+              </svg>
+            ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
