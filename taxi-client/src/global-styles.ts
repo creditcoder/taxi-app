@@ -1,12 +1,5 @@
 import reset from "styled-reset";
-import bgImage from "./images/bg.jpg";
-import styled, { createGlobalStyle } from "./typed-components";
-
-const Layout = styled.div`
-  height: 100vh;
-  background: url(${bgImage}) center no-repeat;
-  background-size: cover;
-`;
+import { createGlobalStyle } from "./typed-components";
 
 // tslint:disable-next-line
 const GlobalStyles = createGlobalStyle`
@@ -33,5 +26,4 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export { Layout };
 export default GlobalStyles;

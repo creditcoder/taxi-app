@@ -2,7 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { fadeIn } from "../../animations";
-import { Layout } from "../../global-styles";
+import { Layout } from "../../Components/Container";
 import styled from "../../typed-components";
 
 const Header = styled.header`
