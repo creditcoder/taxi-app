@@ -5,7 +5,7 @@ interface IProps {
   className?: string;
 }
 
-const Form: React.SFC<IProps> = ({ submitFn, className, children }) => (
+const Form: React.FC<IProps> = ({ submitFn, className, children }) => (
   <form
     className={className}
     onSubmit={e => {
