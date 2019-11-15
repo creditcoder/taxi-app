@@ -1,6 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
+import { toast } from "react-toastify";
 import { verifyPhone, verifyPhoneVariables } from "../../types/api";
 import VerifyPhonePresenter from "./VerifyPhonePresenter";
 import { VERIFY_PHONE } from "./VerifyPhoneQueries";
@@ -30,7 +31,18 @@ class VerifyPhoneContainer extends React.Component<
   public render() {
     const { key, phoneNumber } = this.state;
     return (
-      <VerifyMutation mutation={VERIFY_PHONE} variables={{ key, phoneNumber }}>
+      <VerifyMutation
+        mutation={VERIFY_PHONE}
+        variables={{ key, phoneNumber }}
+        onCompleted={data => {
+          const { CompletePhoneVerification } = data;
+          if (CompletePhoneVerification.ok) {
+            toast.success("Verified successful, log in now");
+          } else {
+            toast.error(CompletePhoneVerification.error);
+          }
+        }}
+      >
         {(mutation, { loading }) => (
           <VerifyPhonePresenter
             onSubmit={mutation}
