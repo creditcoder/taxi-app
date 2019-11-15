@@ -24,13 +24,13 @@ const ExtendedButton = styled(Button)`
 `;
 
 interface IProps {
-  key: string;
+  verificationKey: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: MutationFn,
   loading: boolean
 }
 
-const VerifyPhonePresenter: React.FC<IProps> = ({ key, onChange, onSubmit, loading }) => (
+const VerifyPhonePresenter: React.FC<IProps> = ({ verificationKey, onChange, onSubmit, loading }) => (
   <Container minHeight={"250px"} textAlign={"center"}>
     <Helmet>
       <title>Verify Phone | Taxi</title>
@@ -38,9 +38,9 @@ const VerifyPhonePresenter: React.FC<IProps> = ({ key, onChange, onSubmit, loadi
     <Header backTo={"/phone-login"} title={"Verify Phone Number"} />
     <ExtendedForm submitFn={onSubmit}>
       <ExtendedInput
-        value={key}
+        value={verificationKey}
         placeholder={"Enter Verification Code"}
-        name={key}
+        name={"verificationKey"}
         onChange={onChange}
       />
       <ExtendedButton disabled={loading} value={loading? "Verifying" : "Submit"} onClick={null} />
