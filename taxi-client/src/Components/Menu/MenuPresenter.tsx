@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "../../typed-components";
+import styled, { css } from "../../typed-components";
 
 const Container = styled.div`
   height: 100%;
@@ -60,6 +60,34 @@ const Grid = styled.div`
   align-items: center;
 `;
 
+interface IToggleProps {
+  isDriving: boolean;
+}
+
+const ToggleDriving = styled<IToggleProps, any>("button")`
+  -webkit-appearance: none;
+  background-color: ${props =>
+    props.isDriving ? props.theme.orangeColor : props.theme.blueColor};
+  width: 80%;
+  margin-left: 10%;
+  padding: 15px 0;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  font-family: "Jura", sans-serif;
+  box-shadow: ${props =>
+    props.isDriving
+      ? css`0 2px 25px ${props.theme.orangeColor}`
+      : css`0 2px 25px ${props.theme.blueColor}`};
+  transition: 0.3s;
+  &:hover {
+    background-color: ${props => props.theme.violetColor};
+    box-shadow: 0 2px 25px ${props => props.theme.violetColor};
+  }
+`;
+
 const MenuPresenter: React.FC = () => (
   <Container>
     <Header>
@@ -79,7 +107,9 @@ const MenuPresenter: React.FC = () => (
     </Header>
     <SLink to={"/trips"}>My Trips</SLink>
     <SLink to={"/settings"}>Settings</SLink>
-    
+    <ToggleDriving isDriving={false}>
+      {true ? "Stop driving" : "Start driving"}
+    </ToggleDriving>
   </Container>
 );
 
