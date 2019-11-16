@@ -7,9 +7,14 @@ import Menu from "../../Components/Menu";
 interface IProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
+  loading: boolean;
 }
 
-const HomePresenter: React.FC<IProps> = ({ isMenuOpen, toggleMenu }) => (
+const HomePresenter: React.FC<IProps> = ({
+  isMenuOpen,
+  toggleMenu,
+  loading
+}) => (
   <Layout>
     <Helmet>
       <title>Home | Taxi</title>
@@ -18,16 +23,16 @@ const HomePresenter: React.FC<IProps> = ({ isMenuOpen, toggleMenu }) => (
       sidebar={<Menu />}
       open={isMenuOpen}
       onSetOpen={toggleMenu}
-      styles={{ 
+      styles={{
         sidebar: {
           backgroundColor: "white",
           maxWidth: "450px",
-          width: "60%", 
+          width: "60%",
           zIndex: "10"
-        } 
+        }
       }}
     >
-      <button onClick={() => toggleMenu()}>Open sidebar</button>
+      {!loading && <button onClick={() => toggleMenu()}>Open sidebar</button>}
     </Sidebar>
   </Layout>
 );

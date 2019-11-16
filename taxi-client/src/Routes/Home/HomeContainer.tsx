@@ -20,8 +20,8 @@ class HomeContainer extends React.Component<RouteComponentProps, IState> {
     const { isMenuOpen } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
-        {(query) => (
-          <HomePresenter isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        {({ loading }) => (
+          <HomePresenter loading={loading} isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
         )}
       </ProfileQuery>
     );

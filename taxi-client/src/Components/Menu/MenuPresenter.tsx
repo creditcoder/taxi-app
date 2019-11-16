@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { rotate } from "../../animations";
+import defaultProfilePhoto from "../../images/defaultProfilePhoto.png";
 import styled, { css } from "../../typed-components";
+import { userProfile } from "../../types/api";
 
 const Container = styled.div`
   height: 100%;
 `;
 
 const SLink = styled(Link)`
+  color: ${props => props.theme.violetColor};
   display: block;
   margin-left: 15px;
   margin-bottom: 25px;
@@ -89,28 +93,64 @@ const ToggleDriving = styled<IToggleProps, any>("button")`
   }
 `;
 
-const MenuPresenter: React.FC = () => (
+const LoadingIcon = styled.span`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg{
+    animation: ${rotate} 2s linear infinite;
+  }
+  
+`;
+
+interface IProps {
+  data?: userProfile;
+  loading: boolean;
+}
+
+const MenuPresenter: React.FC<IProps> = ({
+  data: { GetMyProfile: { user = {} } = {} } = {},
+  loading
+}) => (
   <Container>
-    <Header>
-      <Grid>
-        <Link to={"/edit-account"}>
-          <Image
-            src={
-              "https://scontent.fiev22-2.fna.fbcdn.net/v/t39.2081-6/c0.0.129.129a/p128x128/78024629_421554868471770_4379210489645760512_n.png?_nc_cat=101&_nc_oc=AQmk0a3oLcjRLRxaOI8i1Z5zx_hIrD94Sbo7SZte4YwfjqxWOM8PJJB2IMPf5claA2I&_nc_ht=scontent.fiev22-2.fna&oh=d8ecd571d1977081fa231f188bfda6a2&oe=5E84BDA4"
-            }
-          />
-        </Link>
-        <Text>
-          <Name>Nuybur Shumshushmekov</Name>
-          <Rating>Rating: 4.5</Rating>
-        </Text>
-      </Grid>
-    </Header>
-    <SLink to={"/trips"}>My Trips</SLink>
-    <SLink to={"/settings"}>Settings</SLink>
-    <ToggleDriving isDriving={true}>
-      {true ? "Stop driving" : "Start driving"}
-    </ToggleDriving>
+    {loading || !user ? (
+      <LoadingIcon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="#5b0c75"
+        >
+          <path d="M14 22c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-2-22c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 10c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-22 2c0 1.105.896 2 2 2s2-.895 2-2c0-1.104-.896-2-2-2s-2 .896-2 2zm19-9c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm-14-14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2z" />
+        </svg>
+      </LoadingIcon>
+    ) : (
+      <>
+        <Header>
+          <Grid>
+            <Link to={"/edit-account"}>
+              <Image
+                src={
+                  user.profilePhoto || defaultProfilePhoto
+                }
+              />
+            </Link>
+            <Text>
+              <Name>{user.fullName}</Name>
+              <Rating>Rating: 4.5</Rating>
+            </Text>
+          </Grid>
+        </Header>
+        <SLink to={"/trips"}>My Trips</SLink>
+        <SLink to={"/settings"}>Settings</SLink>
+        <ToggleDriving isDriving={user.isDriving}>
+          {user.isDriving ? "Stop driving" : "Start driving"}
+        </ToggleDriving>
+      </>
+    )}
   </Container>
 );
 
