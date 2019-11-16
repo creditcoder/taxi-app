@@ -1,6 +1,7 @@
 import React from "react";
-import Helmet from "react-helmet";
+import { MutationFn } from "react-apollo";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
 import Layout from "../../Components/Container";
 import styled from "../../typed-components";
@@ -29,7 +30,11 @@ const BackArrowLeftTop = styled(BackArrow)`
   left: 20px;
 `;
 
-const SocialLoginPresenter = () => (
+interface IProps {
+  loginCallback: MutationFn
+}
+
+const SocialLoginPresenter: React.FC<IProps> = ({loginCallback}) => (
   <Layout padding={"50px 20px"} textAlign={"center"}>
     <Helmet>
       <title>Social Login | Taxi</title>
@@ -41,7 +46,7 @@ const SocialLoginPresenter = () => (
       autoload={true}
       fields="name,email,picture"
       onClick={null}
-      callback={null}
+      callback={loginCallback}
       render={renderProps => (
         <Link onClick={renderProps.onClick}>
           <Icon>
