@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import { rotate } from "../../animations";
 import defaultProfilePhoto from "../../images/defaultProfilePhoto.png";
@@ -99,20 +100,21 @@ const LoadingIcon = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  & svg{
+  & svg {
     animation: ${rotate} 2s linear infinite;
   }
-  
 `;
 
 interface IProps {
   data?: userProfile;
   loading: boolean;
+  toggleDriving: MutationFn;
 }
 
 const MenuPresenter: React.FC<IProps> = ({
   data: { GetMyProfile: { user = {} } = {} } = {},
-  loading
+  loading,
+  toggleDriving
 }) => (
   <Container>
     {loading || !user ? (
@@ -132,11 +134,7 @@ const MenuPresenter: React.FC<IProps> = ({
         <Header>
           <Grid>
             <Link to={"/edit-account"}>
-              <Image
-                src={
-                  user.profilePhoto || defaultProfilePhoto
-                }
-              />
+              <Image src={user.profilePhoto || defaultProfilePhoto} />
             </Link>
             <Text>
               <Name>{user.fullName}</Name>
@@ -146,7 +144,7 @@ const MenuPresenter: React.FC<IProps> = ({
         </Header>
         <SLink to={"/trips"}>My Trips</SLink>
         <SLink to={"/settings"}>Settings</SLink>
-        <ToggleDriving isDriving={user.isDriving}>
+        <ToggleDriving onClick={toggleDriving} isDriving={user.isDriving}>
           {user.isDriving ? "Stop driving" : "Start driving"}
         </ToggleDriving>
       </>
