@@ -1,6 +1,7 @@
 import React from "react";
 import { Mutation, MutationFn } from "react-apollo";
 import { RouteComponentProps } from "react-router";
+import { toast } from "react-toastify";
 import { facebookConnect, facebookConnectVariables } from "../../types/api";
 import SocialLoginPresenter from "./SocialLoginPresenter";
 import { FACEBOOK_CONNECT } from "./SocialLoginQueries";
@@ -10,31 +11,11 @@ class LoginMutation extends Mutation<
   facebookConnectVariables
 > {}
 
-interface IState {
-  firstName: string;
-  lastName: string;
-  email?: string;
-  fbId: string;
-}
-
-class SocialLoginContainer extends React.Component<
-  RouteComponentProps,
-  IState
-> {
-  public state = {
-    email: "",
-    fbId: "",
-    firstName: "",
-    lastName: ""
-  };
+class SocialLoginContainer extends React.Component<RouteComponentProps> {
   public facebookMutation: MutationFn;
   public render() {
-    const { firstName, lastName, email, fbId } = this.state;
     return (
-      <LoginMutation
-        mutation={FACEBOOK_CONNECT}
-        variables={{ email, fbId, firstName, lastName }}
-      >
+      <LoginMutation mutation={FACEBOOK_CONNECT}>
         {(facebookMutation, { loading }) => {
           this.facebookMutation = facebookMutation;
           return <SocialLoginPresenter loginCallback={this.loginCallback} />;
@@ -44,8 +25,20 @@ class SocialLoginContainer extends React.Component<
   }
 
   public loginCallback = response => {
-    console.log(response);
-    this.facebookMutation();
+    const { name, accessToken, first_name, last_name, email, id } = response;
+    if (accessToken) {
+      toast.success(`Welcome, ${name}`);
+      this.facebookMutation({
+        variables: {
+          email,
+          fbId: id,
+          firstName: first_name,
+          lastName: last_name
+        }
+      });
+    } else {
+      toast.error("Could not log you in");
+    }
   };
 }
 
