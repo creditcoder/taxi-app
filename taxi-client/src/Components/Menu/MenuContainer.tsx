@@ -1,5 +1,6 @@
 import React from "react";
 import { Mutation, Query } from "react-apollo";
+import { toast } from "react-toastify";
 import { USER_PROFILE } from "../../sharedQueries";
 import { toggleDriving, userProfile } from "../../types/api";
 import MenuPresenter from "./MenuPresenter";
@@ -14,7 +15,28 @@ class MenuContainer extends React.Component {
     return (
       <ToggleDrivingMutation
         mutation={TOGGLE_DRIVING}
-        refetchQueries={[{ query: USER_PROFILE }]}
+        update={(cache, { data }) => {
+          if (data) {
+            const { ToggleDrivingMode } = data;
+            if (!ToggleDrivingMode.ok) {
+              toast.error(ToggleDrivingMode.error);
+              return;
+            }
+            // read last query from the cache
+            const query: userProfile | null = cache.readQuery({
+              query: USER_PROFILE
+            });
+            if (query) {
+              const {
+                GetMyProfile: { user }
+              } = query;
+              if (user) {
+                user.isDriving = !user.isDriving;
+              }
+            }
+            cache.writeQuery({ query: USER_PROFILE, data: query });
+          }
+        }}
       >
         {toggleDrivingFn => (
           <ProfileQuery query={USER_PROFILE}>
