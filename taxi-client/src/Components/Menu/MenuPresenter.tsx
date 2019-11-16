@@ -30,19 +30,56 @@ const Image = styled.img`
   background-color: grey;
 `;
 
+const Name = styled.h2`
+  margin-bottom: 10px;
+  font-size: 22px;
+  line-height: 25px;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const Rating = styled.h5`
+  font-size: 18px;
+  line-height: 20px;
+  color: white;
+`;
+
+const Text = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const Grid = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 10px;
+  align-items: center;
+`;
+
 const MenuPresenter: React.FC = () => (
   <Container>
     <Header>
-      <Link to={"/edit-account"}>
-        <Image
-          src={
-            "https://scontent.fiev22-2.fna.fbcdn.net/v/t39.2081-6/c0.0.129.129a/p128x128/78024629_421554868471770_4379210489645760512_n.png?_nc_cat=101&_nc_oc=AQmk0a3oLcjRLRxaOI8i1Z5zx_hIrD94Sbo7SZte4YwfjqxWOM8PJJB2IMPf5claA2I&_nc_ht=scontent.fiev22-2.fna&oh=d8ecd571d1977081fa231f188bfda6a2&oe=5E84BDA4"
-          }
-        />
-      </Link>
+      <Grid>
+        <Link to={"/edit-account"}>
+          <Image
+            src={
+              "https://scontent.fiev22-2.fna.fbcdn.net/v/t39.2081-6/c0.0.129.129a/p128x128/78024629_421554868471770_4379210489645760512_n.png?_nc_cat=101&_nc_oc=AQmk0a3oLcjRLRxaOI8i1Z5zx_hIrD94Sbo7SZte4YwfjqxWOM8PJJB2IMPf5claA2I&_nc_ht=scontent.fiev22-2.fna&oh=d8ecd571d1977081fa231f188bfda6a2&oe=5E84BDA4"
+            }
+          />
+        </Link>
+        <Text>
+          <Name>Nuybur Shumshushmekov</Name>
+          <Rating>Rating: 4.5</Rating>
+        </Text>
+      </Grid>
     </Header>
     <SLink to={"/trips"}>My Trips</SLink>
     <SLink to={"/settings"}>Settings</SLink>
+    
   </Container>
 );
 

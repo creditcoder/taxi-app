@@ -21,7 +21,7 @@ const HomePresenter: React.FC<IProps> = ({ isMenuOpen, toggleMenu }) => (
       styles={{ 
         sidebar: {
           backgroundColor: "white",
-          maxWidth: "600px",
+          maxWidth: "450px",
           width: "60%", 
           zIndex: "10"
         } 
