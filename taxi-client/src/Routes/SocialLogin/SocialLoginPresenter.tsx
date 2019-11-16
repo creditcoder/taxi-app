@@ -42,7 +42,7 @@ const SocialLoginPresenter: React.FC<IProps> = ({loginCallback}) => (
     <BackArrowLeftTop backTo={"/"} />
     <FacebookLogin
       appId="421081915185732"
-      autoLoad={true}
+      autoLoad={false}
       fields="name,first_name,last_name,email"
       onClick={null}
       callback={loginCallback}
