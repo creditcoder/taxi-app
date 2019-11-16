@@ -36,7 +36,10 @@ class SocialLoginContainer extends React.Component<RouteComponentProps> {
             {(facebookMutation, { loading }) => {
               this.facebookMutation = facebookMutation;
               return (
-                <SocialLoginPresenter loginCallback={this.loginCallback} />
+                <SocialLoginPresenter
+                  loginCallback={this.loginCallback}
+                  loading={loading}
+                />
               );
             }}
           </LoginMutation>
