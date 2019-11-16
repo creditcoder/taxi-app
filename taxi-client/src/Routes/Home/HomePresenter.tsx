@@ -2,6 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import Sidebar from "react-sidebar";
 import { Layout } from "../../Components/Container";
+import Menu from "../../Components/Menu";
 
 interface IProps {
   isMenuOpen: boolean;
@@ -14,7 +15,7 @@ const HomePresenter: React.FC<IProps> = ({ isMenuOpen, toggleMenu }) => (
       <title>Home | Taxi</title>
     </Helmet>
     <Sidebar
-      sidebar={<b>Sidebar content</b>}
+      sidebar={<Menu />}
       open={isMenuOpen}
       onSetOpen={toggleMenu}
       styles={{ 
