@@ -69,6 +69,7 @@ const ToggleDriving = styled<IToggleProps, any>("button")`
   background-color: ${props =>
     props.isDriving ? props.theme.orangeColor : props.theme.blueColor};
   width: 80%;
+  margin-top: 10px;
   margin-left: 10%;
   padding: 15px 0;
   border: none;
@@ -107,7 +108,7 @@ const MenuPresenter: React.FC = () => (
     </Header>
     <SLink to={"/trips"}>My Trips</SLink>
     <SLink to={"/settings"}>Settings</SLink>
-    <ToggleDriving isDriving={false}>
+    <ToggleDriving isDriving={true}>
       {true ? "Stop driving" : "Start driving"}
     </ToggleDriving>
   </Container>
