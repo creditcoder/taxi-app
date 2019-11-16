@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import Button from "../../Components/Button";
 import Layout from "../../Components/Container";
@@ -34,6 +35,8 @@ interface IProps {
   email: string;
   profilePhoto: string;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  loading: boolean;
+  onSubmit: MutationFn;
 }
 
 const EditAccountPresenter: React.FC<IProps> = ({
@@ -41,14 +44,16 @@ const EditAccountPresenter: React.FC<IProps> = ({
   lastName,
   email,
   profilePhoto,
-  onInputChange
+  onInputChange,
+  loading,
+  onSubmit
 }) => (
   <Layout>
     <Helmet>
       <title>Edit Account | Taxi</title>
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
-    <ExtendedForm>
+    <ExtendedForm onSubmit={onSubmit}>
       <Input
         width={"250px"}
         onChange={onInputChange}
@@ -73,7 +78,7 @@ const EditAccountPresenter: React.FC<IProps> = ({
         placeholder={"Email"}
         name="email"
       />
-      <ExtendedButton onClick={null} value={"Update"} />
+      <ExtendedButton onClick={null} value={loading ? "Loading" : "Update"} />
     </ExtendedForm>
   </Layout>
 );

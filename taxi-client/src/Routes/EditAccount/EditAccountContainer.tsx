@@ -1,6 +1,9 @@
 import React from "react";
+import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router";
+import { updateProfile, updateProfileVariables } from "../../types/api";
 import EditAccountPresenter from "./EditAccountPresenter";
+import { UPDATE_PROFILE } from "./EditAccountQueries";
 
 interface IState {
   firstName: string;
@@ -8,6 +11,11 @@ interface IState {
   email: string;
   profilePhoto: string;
 }
+
+class UpdateProfileMutation extends Mutation<
+  updateProfile,
+  updateProfileVariables
+> {}
 
 class EditAccountContainer extends React.Component<
   RouteComponentProps,
@@ -22,13 +30,27 @@ class EditAccountContainer extends React.Component<
   public render() {
     const { email, firstName, lastName, profilePhoto } = this.state;
     return (
-      <EditAccountPresenter
-        email={email}
-        firstName={firstName}
-        lastName={lastName}
-        profilePhoto={profilePhoto}
-        onInputChange={this.onInputChange}
-      />
+      <UpdateProfileMutation
+        mutation={UPDATE_PROFILE}
+        variables={{
+          email,
+          firstName,
+          lastName,
+          profilePhoto
+        }}
+      >
+        {(updateProfileFn, { loading }) => (
+          <EditAccountPresenter
+            email={email}
+            firstName={firstName}
+            lastName={lastName}
+            profilePhoto={profilePhoto}
+            onInputChange={this.onInputChange}
+            loading={loading}
+            onSubmit={updateProfileFn}
+          />
+        )}
+      </UpdateProfileMutation>
     );
   }
 
