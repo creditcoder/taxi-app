@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "../../typed-components";
 
-const FullWidth = styled.div``;
-
 const Container = styled.input`
-  font-family: 'Jura', sans-serif;
+  font-family: "Jura", sans-serif;
   min-width: 150px;
   background-color: ${props => props.theme.violetColor};
   color: white;
@@ -37,16 +35,13 @@ const Button: React.FC<IProps> = ({
   disabled = false,
   className
 }) => (
-  <FullWidth>
-    <Container
+  <Container
     type={"submit"}
     className={className}
     value={value}
     disabled={false}
     onClick={onClick}
   />
-  </FullWidth>
-  
 );
 
 export default Button;

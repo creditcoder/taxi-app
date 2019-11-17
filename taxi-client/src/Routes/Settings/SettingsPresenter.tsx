@@ -1,6 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
+import Button from "../../Components/Button";
 import Layout from "../../Components/Container";
 import Header from "../../Components/Header";
 import Place from "../../Components/Place";
@@ -27,15 +28,25 @@ const Key = styled.span`
   margin-bottom: 5px;
 `;
 
-const FakeLink = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
+const FlexLink = styled(Link)`
+  display: flex;
+  justify-content: center;
 `;
 
-const SLink = styled(Link)`
-  display: block;
-  text-decoration: underline;
-  margin: 20px 0;
+const ExtendedButton = styled(Button)`
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 25px ${props => props.theme.blueColor};
+  background-color: ${props => props.theme.blueColor};
+  transition: .3s;
+  &:hover {
+    margin: 5px 0 15px 0;
+  }
+`;
+
+const ExtendedButtonLogOut = styled(ExtendedButton)`
+  box-shadow: 0 2px 25px ${props => props.theme.pinkColor};
+  background-color: ${props => props.theme.pinkColor};
 `;
 
 interface IProps {
@@ -49,7 +60,7 @@ const SettingsPresenter: React.FC<IProps> = ({
     <Helmet>
       <title>Settings | Taxi</title>
     </Helmet>
-    <Layout>
+    <Layout minHeight={"500px"}>
       <Header title={"Account Settings"} backTo={"/"} />
       <GridLink to={"/edit-account"}>
         {user && (
@@ -65,8 +76,13 @@ const SettingsPresenter: React.FC<IProps> = ({
       <Place isFav={false} name={"Name"} address={"hello ama address"} />
       <Place isFav={false} name={"Name"} address={"hello ama address"} />
       <Place isFav={true} name={"Name"} address={"hello ama address"} />
-      <SLink to={"/places"}>Go to Places</SLink>
-      <FakeLink onClick={null}>Log Out</FakeLink>
+      <FlexLink to={"/places"}>
+          <ExtendedButton value={"Go to Places"} onClick={null}/>
+      </FlexLink>
+      <FlexLink>
+      <ExtendedButtonLogOut value={"Log Out"} onClick={null}/>
+      </FlexLink>
+      
     </Layout>
   </>
 );
