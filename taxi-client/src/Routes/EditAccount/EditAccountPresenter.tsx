@@ -6,10 +6,11 @@ import Layout from "../../Components/Container";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
 import Input from "../../Components/Input";
+import PhotoInput from "../../Components/PhotoInput";
 import styled from "../../typed-components";
 
 const ExtendedForm = styled(Form)`
-  height: 250px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +26,7 @@ const ExtendedButton = styled(Button)`
   transition: 0.3s;
   &:hover {
     background-color: ${props => props.theme.violetColor};
-  box-shadow: 0 2px 25px ${props => props.theme.violetColor};
+    box-shadow: 0 2px 25px ${props => props.theme.violetColor};
   }
 `;
 
@@ -37,6 +38,7 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
   onSubmit: MutationFn;
+  uploading: boolean;
 }
 
 const EditAccountPresenter: React.FC<IProps> = ({
@@ -46,7 +48,8 @@ const EditAccountPresenter: React.FC<IProps> = ({
   profilePhoto,
   onInputChange,
   loading,
-  onSubmit
+  onSubmit,
+  uploading
 }) => (
   <Layout>
     <Helmet>
@@ -54,6 +57,11 @@ const EditAccountPresenter: React.FC<IProps> = ({
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
     <ExtendedForm submitFn={onSubmit}>
+      <PhotoInput
+        uploading={uploading}
+        fileUrl={profilePhoto}
+        onChange={onInputChange}
+      />
       <Input
         width={"250px"}
         onChange={onInputChange}

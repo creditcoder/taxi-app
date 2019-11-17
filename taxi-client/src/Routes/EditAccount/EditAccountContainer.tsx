@@ -16,6 +16,8 @@ interface IState {
   lastName: string;
   email: string;
   profilePhoto: string;
+  uploading: boolean;
+  file?: Blob;
 }
 
 class UpdateProfileMutation extends Mutation<
@@ -33,10 +35,11 @@ class EditAccountContainer extends React.Component<
     email: "",
     firstName: "",
     lastName: "",
-    profilePhoto: ""
+    profilePhoto: "",
+    uploading: false
   };
   public render() {
-    const { email, firstName, lastName, profilePhoto } = this.state;
+    const { email, firstName, lastName, profilePhoto, uploading } = this.state;
     return (
       <ProfileQuery
         query={USER_PROFILE}
@@ -46,10 +49,10 @@ class EditAccountContainer extends React.Component<
         {() => (
           <UpdateProfileMutation
             mutation={UPDATE_PROFILE}
-            refetchQueries={[{query: USER_PROFILE}]}
+            refetchQueries={[{ query: USER_PROFILE }]}
             onCompleted={data => {
-              const {UpdateMyProfile} = data;
-              if(UpdateMyProfile.ok) {
+              const { UpdateMyProfile } = data;
+              if (UpdateMyProfile.ok) {
                 toast.success("Profile was updated");
               } else {
                 toast.error(UpdateMyProfile.error);
@@ -71,6 +74,7 @@ class EditAccountContainer extends React.Component<
                 onInputChange={this.onInputChange}
                 loading={loading}
                 onSubmit={updateProfileFn}
+                uploading={uploading}
               />
             )}
           </UpdateProfileMutation>
@@ -81,9 +85,13 @@ class EditAccountContainer extends React.Component<
 
   public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const {
-      target: { name, value }
+      target: { name, value, files }
     } = event;
-
+    if (files) {
+      this.setState({
+        file: files[0]
+      });
+    }
     this.setState(({
       [name]: value
     } as unknown) as IState);
@@ -96,7 +104,12 @@ class EditAccountContainer extends React.Component<
       } = data;
       if (user) {
         const { firstName, lastName, email, profilePhoto } = user;
-        this.setState({ email, firstName, lastName, profilePhoto } as IState);
+        this.setState({
+          email,
+          firstName,
+          lastName,
+          profilePhoto
+        } as IState);
       }
     }
   };

@@ -2,7 +2,12 @@ import React from "react";
 import { rotate } from "../../animations";
 import styled from "../../typed-components";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Input = styled.input`
   color: white;
@@ -14,23 +19,27 @@ const Input = styled.input`
 `;
 
 const Image = styled.label`
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 35px;
   overflow: hidden;
   cursor: pointer;
   border: 2px solid ${props => props.theme.violetColor};
   border-radius: 50%;
+  box-shadow: 0 2px 25px ${props => props.theme.violetColor};
   font-size: 28px;
   & img {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
   }
 `;
 
-const Uploading = styled.span`
+const Uploading = styled.div`
+  height: 48px;
+  width: 48px;
   animation: ${rotate} 2s linear infinite;
 `;
 
