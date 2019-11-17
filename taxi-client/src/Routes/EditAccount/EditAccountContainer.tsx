@@ -23,7 +23,7 @@ class UpdateProfileMutation extends Mutation<
   updateProfileVariables
 > {}
 
-class ProfileQuery extends Query<userProfile> {}
+class ProfileQuery extends Query<userProfile, any> {}
 
 class EditAccountContainer extends React.Component<
   RouteComponentProps,
@@ -40,6 +40,7 @@ class EditAccountContainer extends React.Component<
     return (
       <ProfileQuery
         query={USER_PROFILE}
+        fetchPolicy={"cache-and-network"}
         onCompleted={data => this.updateFields(data)}
       >
         {() => (
