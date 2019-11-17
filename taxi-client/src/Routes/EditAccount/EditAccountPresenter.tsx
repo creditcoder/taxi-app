@@ -53,7 +53,7 @@ const EditAccountPresenter: React.FC<IProps> = ({
       <title>Edit Account | Taxi</title>
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
-    <ExtendedForm onSubmit={onSubmit}>
+    <ExtendedForm submitFn={onSubmit}>
       <Input
         width={"250px"}
         onChange={onInputChange}
