@@ -47,7 +47,17 @@ const AddButton = styled(Button)`
   }
 `;
 
-const AddPlacePresenter: React.FC = () => (
+interface IProps {
+  address: string;
+  name: string;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const AddPlacePresenter: React.FC<IProps> = ({
+  address,
+  name,
+  onInputChange
+}) => (
   <>
     <Helmet>
       <title>Add Place | Taxi</title>
@@ -59,21 +69,17 @@ const AddPlacePresenter: React.FC = () => (
           placeholder={"Name"}
           type={"text"}
           width={"200px"}
-          value={"name"}
+          value={name}
           name={"name"}
-          onChange={() => {
-            return;
-          }}
+          onChange={onInputChange}
         />
         <Input
           placeholder={"Address"}
           type={"text"}
           width={"200px"}
-          value={"address"}
+          value={address}
           name={"address"}
-          onChange={() => {
-            return;
-          }}
+          onChange={onInputChange}
         />
         <ExtendedLink to={"/find-address"}>
           <FindButton onClick={null} value={"Pick from Map"} />
