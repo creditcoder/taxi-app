@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
@@ -51,12 +52,16 @@ interface IProps {
   address: string;
   name: string;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  loading: boolean;
+  onSubmit: MutationFn;
 }
 
 const AddPlacePresenter: React.FC<IProps> = ({
   address,
   name,
-  onInputChange
+  onInputChange,
+  loading,
+  onSubmit
 }) => (
   <>
     <Helmet>
@@ -64,7 +69,7 @@ const AddPlacePresenter: React.FC<IProps> = ({
     </Helmet>
     <Layout>
       <Header title={"Add Place"} backTo={"/"} />
-      <ExtendedForm submitFn={null}>
+      <ExtendedForm submitFn={onSubmit}>
         <Input
           placeholder={"Name"}
           type={"text"}
@@ -84,7 +89,7 @@ const AddPlacePresenter: React.FC<IProps> = ({
         <ExtendedLink to={"/find-address"}>
           <FindButton onClick={null} value={"Pick from Map"} />
         </ExtendedLink>
-        <AddButton onClick={null} value={"Add Place"} />
+        <AddButton onClick={null} value={loading ? "Adding" : "Add Place"} />
       </ExtendedForm>
     </Layout>
   </>
