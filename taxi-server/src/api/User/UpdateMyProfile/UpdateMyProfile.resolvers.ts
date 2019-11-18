@@ -16,22 +16,23 @@ const resolvers: Resolvers = {
         { req }
       ): Promise<UpdateMyProfileResponse> => {
         const user: User = req.user;
-        const notNullArgs = clearNullArgs(args);
+        const notNullArgs: any = clearNullArgs(args);
+         // to call beforeUpdate on user instance to hash password
+        if (notNullArgs.password) {
+          user.password = notNullArgs.password;
+          user.save();
+          delete notNullArgs.password;
+        }
         try {
-          // to call beforeUpdate on user instance to hash password
-          if (args.password !== null) {
-            user.password = args.password;
-            user.save();
-          }
           await User.update({ id: user.id }, { ...notNullArgs });
           return {
             ok: true,
             error: null
           };
-        } catch (e) {
+        } catch (error) {
           return {
             ok: false,
-            error: e.message
+            error: error.message
           };
         }
       }

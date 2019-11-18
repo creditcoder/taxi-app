@@ -43,7 +43,7 @@ class EditAccountContainer extends React.Component<
       <ProfileQuery
         query={USER_PROFILE}
         fetchPolicy={"cache-and-network"}
-        onCompleted={data => this.updateFields(data)}
+        onCompleted={this.updateFields}
       >
         {() => (
           <UpdateProfileMutation
