@@ -1,11 +1,13 @@
 import React from "react";
 import { Mutation, Query } from "react-apollo";
-import { USER_PROFILE } from "../../sharedQueries";
+import { GET_PLACES, USER_PROFILE } from "../../sharedQueries";
 import { LOG_USER_OUT } from "../../sharedQueries.local";
-import { userProfile } from "../../types/api";
+import { getPlaces, userProfile } from "../../types/api";
 import SettingsPresenter from "./SettingsPresenter";
 
 class MiniProfileQuery extends Query<userProfile> {}
+
+class PlacesQuery extends Query<getPlaces> {}
 
 class SettingsContainer extends React.Component {
   public render() {
@@ -13,8 +15,18 @@ class SettingsContainer extends React.Component {
       <Mutation mutation={LOG_USER_OUT}>
         {logUserOut => (
           <MiniProfileQuery query={USER_PROFILE}>
-            {({data, loading: userDataLoading }) => (
-              <SettingsPresenter userData={data} logUserOut={logUserOut} userDataLoading={userDataLoading}/>
+            {({ data: userData, loading: userDataLoading }) => (
+              <PlacesQuery query={GET_PLACES}>
+                {({ data: placesData, loading: placesLoading }) => (
+                  <SettingsPresenter
+                    userData={userData}
+                    placesData={placesData}
+                    logUserOut={logUserOut}
+                    placesLoading={placesLoading}
+                    userDataLoading={userDataLoading}
+                  />
+                )}
+              </PlacesQuery>
             )}
           </MiniProfileQuery>
         )}

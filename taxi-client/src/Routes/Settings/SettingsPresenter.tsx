@@ -7,7 +7,7 @@ import Layout from "../../Components/Container";
 import Header from "../../Components/Header";
 import Place from "../../Components/Place";
 import styled from "../../typed-components";
-import { userProfile } from "../../types/api";
+import { getPlaces, userProfile } from "../../types/api";
 
 const ExtendedHeader = styled(Header)`
   margin-bottom: 30px;
@@ -54,24 +54,32 @@ const ExtendedButton = styled(Button)`
 const ExtendedButtonLogOut = styled(ExtendedButton)`
   box-shadow: 0 2px 25px ${props => props.theme.pinkColor};
   background-color: ${props => props.theme.pinkColor};
+  margin: 10px 0 30px 0;
+  &:hover {
+    margin: 5px 0 35px 0;
+  }
 `;
 
 interface IProps {
   userData?: userProfile;
   logUserOut: MutationFn;
   userDataLoading: boolean;
+  placesData?: getPlaces;
+  placesLoading: boolean;
 }
 
 const SettingsPresenter: React.FC<IProps> = ({
   userData: { GetMyProfile: { user = null } = {} } = {},
   logUserOut,
-  userDataLoading
+  userDataLoading,
+  placesData: { GetMyPlaces: { places = null } = {} } = {},
+  placesLoading
 }) => (
   <>
     <Helmet>
       <title>Settings | Taxi</title>
     </Helmet>
-    <Layout minHeight={"500px"}>
+    <Layout>
       <ExtendedHeader title={"Account Settings"} backTo={"/"} />
       <GridLink to={"/edit-account"}>
         {!userDataLoading && user && (
@@ -84,9 +92,16 @@ const SettingsPresenter: React.FC<IProps> = ({
           </>
         )}
       </GridLink>
-      <Place isFav={false} name={"Name"} address={"hello ama address"} />
-      <Place isFav={false} name={"Name"} address={"hello ama address"} />
-      <Place isFav={true} name={"Name"} address={"hello ama address"} />
+      {!placesLoading &&
+        places &&
+        places.map(place => (
+          <Place
+            key={place!.id}
+            isFav={place!.isFav}
+            name={place!.name}
+            address={place!.address}
+          />
+        ))}
       <FlexLink to={"/places"}>
         <ExtendedButton value={"Go to Places"} onClick={null} />
       </FlexLink>
