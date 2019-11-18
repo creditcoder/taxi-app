@@ -9,6 +9,10 @@ const Container = styled.div`
 
 const TextBlock = styled.div`
   margin-left: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Name = styled.span``;
@@ -17,13 +21,13 @@ const Icon = styled.span`
   width: 36px;
   height: 36px;
   margin-left: 20px;
+  margin-bottom: 10px;
   border-radius: 50%;
   box-shadow: 0 2px 5px ${props => props.theme.orangeColor};
   cursor: pointer;
 `;
 
 const Address = styled.span`
-  padding-left: 10px;
   color: ${props => props.theme.greyColor};
   font-size: 14px;
 `;

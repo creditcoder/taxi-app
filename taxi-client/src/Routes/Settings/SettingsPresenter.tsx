@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
@@ -38,7 +39,7 @@ const ExtendedButton = styled(Button)`
   border-radius: 10px;
   box-shadow: 0 2px 25px ${props => props.theme.blueColor};
   background-color: ${props => props.theme.blueColor};
-  transition: .3s;
+  transition: 0.3s;
   &:hover {
     margin: 5px 0 15px 0;
   }
@@ -51,10 +52,12 @@ const ExtendedButtonLogOut = styled(ExtendedButton)`
 
 interface IProps {
   userData?: userProfile;
+  logUserOut: MutationFn;
 }
 
 const SettingsPresenter: React.FC<IProps> = ({
-  userData: { GetMyProfile: { user = null } = {} } = {}
+  userData: { GetMyProfile: { user = null } = {} } = {},
+  logUserOut
 }) => (
   <>
     <Helmet>
@@ -77,12 +80,11 @@ const SettingsPresenter: React.FC<IProps> = ({
       <Place isFav={false} name={"Name"} address={"hello ama address"} />
       <Place isFav={true} name={"Name"} address={"hello ama address"} />
       <FlexLink to={"/places"}>
-          <ExtendedButton value={"Go to Places"} onClick={null}/>
+        <ExtendedButton value={"Go to Places"} onClick={null} />
       </FlexLink>
       <FlexLink>
-      <ExtendedButtonLogOut value={"Log Out"} onClick={null}/>
+        <ExtendedButtonLogOut value={"Log Out"} onClick={logUserOut} />
       </FlexLink>
-      
     </Layout>
   </>
 );
