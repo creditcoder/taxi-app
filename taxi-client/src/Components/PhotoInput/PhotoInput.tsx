@@ -27,9 +27,8 @@ const Image = styled.label`
   margin-bottom: 35px;
   overflow: hidden;
   cursor: pointer;
-  border: 2px solid ${props => props.theme.violetColor};
   border-radius: 50%;
-  box-shadow: 0 2px 25px ${props => props.theme.violetColor};
+  box-shadow: 0 2px 25px ${props => props.theme.greyColor};
   font-size: 28px;
   & img {
     height: 100px;

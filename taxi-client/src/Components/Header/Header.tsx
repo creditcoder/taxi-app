@@ -32,10 +32,11 @@ const Title = styled.h2`
 interface IProps {
   title: string;
   backTo?: string;
+  className?: string;
 }
 
-const Header: React.FC<IProps> = ({ title, backTo }) => (
-  <Container>
+const Header: React.FC<IProps> = ({ title, backTo, className }) => (
+  <Container className={className}>
     {backTo && <ExtendedBackArrow backTo={backTo} />}
     <Title>{title}</Title>
   </Container>

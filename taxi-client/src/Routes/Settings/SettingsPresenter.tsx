@@ -9,7 +9,12 @@ import Place from "../../Components/Place";
 import styled from "../../typed-components";
 import { userProfile } from "../../types/api";
 
+const ExtendedHeader = styled(Header)`
+  margin-bottom: 30px;
+`;
+
 const Image = styled.img`
+  margin: 0 20px;
   height: 60px;
   width: 60px;
   border-radius: 50%;
@@ -17,10 +22,10 @@ const Image = styled.img`
 `;
 
 const GridLink = styled(Link)`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 30px;
 `;
 
 const Keys = styled.div``;
@@ -67,7 +72,7 @@ const SettingsPresenter: React.FC<IProps> = ({
       <title>Settings | Taxi</title>
     </Helmet>
     <Layout minHeight={"500px"}>
-      <Header title={"Account Settings"} backTo={"/"} />
+      <ExtendedHeader title={"Account Settings"} backTo={"/"} />
       <GridLink to={"/edit-account"}>
         {!userDataLoading && user && (
           <>
