@@ -24,7 +24,6 @@ const Image = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 35px;
   overflow: hidden;
   cursor: pointer;
   border-radius: 50%;

@@ -10,7 +10,7 @@ import PhotoInput from "../../Components/PhotoInput";
 import styled from "../../typed-components";
 
 const ExtendedForm = styled(Form)`
-  height: 400px;
+  height: 370px;
   display: flex;
   flex-direction: column;
   align-items: center;

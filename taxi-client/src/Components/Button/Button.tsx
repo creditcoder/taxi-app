@@ -39,7 +39,7 @@ const Button: React.FC<IProps> = ({
     type={"submit"}
     className={className}
     value={value}
-    disabled={false}
+    disabled={disabled}
     onClick={onClick}
   />
 );

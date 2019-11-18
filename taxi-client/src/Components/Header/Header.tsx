@@ -21,7 +21,7 @@ const Container = styled.header`
   & svg {
     fill: white;
   }
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding: 0 10px;
 `;
 

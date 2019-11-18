@@ -9,9 +9,6 @@ import Place from "../../Components/Place";
 import styled from "../../typed-components";
 import { getPlaces, userProfile } from "../../types/api";
 
-const ExtendedHeader = styled(Header)`
-  margin-bottom: 30px;
-`;
 
 const Image = styled.img`
   margin: 0 20px;
@@ -80,7 +77,7 @@ const SettingsPresenter: React.FC<IProps> = ({
       <title>Settings | Taxi</title>
     </Helmet>
     <Layout>
-      <ExtendedHeader title={"Account Settings"} backTo={"/"} />
+      <Header title={"Account Settings"} backTo={"/"} />
       <GridLink to={"/edit-account"}>
         {!userDataLoading && user && (
           <>
