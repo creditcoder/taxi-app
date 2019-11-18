@@ -1,13 +1,23 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
+import { USER_PROFILE } from "../../sharedQueries";
 import { LOG_USER_OUT } from "../../sharedQueries.local";
+import { userProfile } from "../../types/api";
 import SettingsPresenter from "./SettingsPresenter";
+
+class MiniProfileQuery extends Query<userProfile> {}
 
 class SettingsContainer extends React.Component {
   public render() {
     return (
       <Mutation mutation={LOG_USER_OUT}>
-        {logUserOut => <SettingsPresenter logUserOut={logUserOut} />}
+        {logUserOut => (
+          <MiniProfileQuery query={USER_PROFILE}>
+            {({data, loading: userDataLoading }) => (
+              <SettingsPresenter userData={data} logUserOut={logUserOut} userDataLoading={userDataLoading}/>
+            )}
+          </MiniProfileQuery>
+        )}
       </Mutation>
     );
   }

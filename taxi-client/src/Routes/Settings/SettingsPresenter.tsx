@@ -9,10 +9,11 @@ import Place from "../../Components/Place";
 import styled from "../../typed-components";
 import { userProfile } from "../../types/api";
 
-const Image = styled.div`
+const Image = styled.img`
   height: 60px;
   width: 60px;
   border-radius: 50%;
+  box-shadow: 0 2px 25px ${props => props.theme.greyColor};
 `;
 
 const GridLink = styled(Link)`
@@ -53,11 +54,13 @@ const ExtendedButtonLogOut = styled(ExtendedButton)`
 interface IProps {
   userData?: userProfile;
   logUserOut: MutationFn;
+  userDataLoading: boolean;
 }
 
 const SettingsPresenter: React.FC<IProps> = ({
   userData: { GetMyProfile: { user = null } = {} } = {},
-  logUserOut
+  logUserOut,
+  userDataLoading
 }) => (
   <>
     <Helmet>
@@ -66,7 +69,7 @@ const SettingsPresenter: React.FC<IProps> = ({
     <Layout minHeight={"500px"}>
       <Header title={"Account Settings"} backTo={"/"} />
       <GridLink to={"/edit-account"}>
-        {user && (
+        {!userDataLoading && user && (
           <>
             <Image src={user.profilePhoto} />
             <Keys>
