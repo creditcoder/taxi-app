@@ -18,7 +18,8 @@ const resolvers: Resolvers = {
           const place = await Place.findOne({ id: args.placeId });
           if (place) {
             if (place.userId === user.id) {
-              const notNullArgs = clearNullArgs(args);
+              const notNullArgs: any = clearNullArgs(args);
+              delete notNullArgs.placeId;
               await Place.update({ id: args.placeId }, { ...notNullArgs });
               return {
                 ok: true,
