@@ -46,15 +46,18 @@ const PlacesPresenter: React.FC<IProps> = ({
       </ExtendedLink>
       {!loading &&
         places &&
-        places.map(place => (
-          <Place
-            key={place!.id}
-            id={place!.id}
-            isFav={place!.isFav}
-            name={place!.name}
-            address={place!.address}
-          />
-        ))}
+        places.map(place => {
+          console.log(place);
+          return (
+            <Place
+              key={place!.id}
+              id={place!.id}
+              fav={place!.isFav}
+              name={place!.name}
+              address={place!.address}
+            />
+          );
+        })}
     </Layout>
   </>
 );

@@ -95,7 +95,7 @@ const SettingsPresenter: React.FC<IProps> = ({
           <Place
             key={place!.id}
             id={place!.id}
-            isFav={place!.isFav}
+            fav={place!.isFav}
             name={place!.name}
             address={place!.address}
           />

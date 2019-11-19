@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -36,11 +37,12 @@ interface IProps {
   isFav: boolean;
   name: string;
   address: string;
+  onStarPress: MutationFn;
 }
 
-const Place: React.FC<IProps> = ({ isFav, name, address }) => (
+const Place: React.FC<IProps> = ({ isFav, name, address, onStarPress }) => (
   <Container>
-    <Icon>
+    <Icon onClick={onStarPress}>
       {isFav ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
