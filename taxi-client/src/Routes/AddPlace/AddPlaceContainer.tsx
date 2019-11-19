@@ -2,7 +2,6 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router";
 import { toast } from "react-toastify";
-import { GET_PLACES } from "../../sharedQueries";
 import { addPlace, addPlaceVariables } from "../../types/api";
 import AddPlacePresenter from "./AddPlacePresenter";
 import { ADD_PLACE } from "./AddPlaceQueries";
@@ -30,7 +29,6 @@ class AddPlaceContainer extends React.Component<RouteComponentProps, IState> {
     return (
       <AddPlaceMutation
         mutation={ADD_PLACE}
-        refetchQueries={[{ query: GET_PLACES }]}
         onCompleted={data => {
           const { AddPlace } = data;
           if (AddPlace.ok) {
