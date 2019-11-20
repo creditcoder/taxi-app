@@ -1,5 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
+import AddressBar from "../../Components/AddressBar";
 import styled from "../../typed-components";
 
 const Map = styled.div`
@@ -37,6 +38,12 @@ class FindAddressPresenter extends React.Component<IProps> {
         <Helmet>
           <title>Find Address | Taxi</title>
         </Helmet>
+        <AddressBar
+          onBlur={() => {return;}}
+          onChange={(event) => {return;}}
+          name={"address"}
+          value={"address"}
+          />
         <Centered>
           <Icon>
             <svg
