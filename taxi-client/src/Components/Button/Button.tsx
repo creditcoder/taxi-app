@@ -18,7 +18,9 @@ const Container = styled.input`
     outline: none;
   }
   &:disabled {
+    cursor: auto;
     opacity: 0.8;
+    &:hover{}
   }
 `;
 

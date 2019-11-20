@@ -19,8 +19,8 @@ interface IState {
 class AddPlaceContainer extends React.Component<RouteComponentProps, IState> {
   public state = {
     address: "",
-    lat: 1.23,
-    lng: 1.23,
+    lat: 0,
+    lng: 0,
     name: ""
   };
 
@@ -30,7 +30,7 @@ class AddPlaceContainer extends React.Component<RouteComponentProps, IState> {
     return (
       <AddPlaceMutation
         mutation={ADD_PLACE}
-        refetchQueries={[{query: GET_PLACES}]}
+        refetchQueries={[{ query: GET_PLACES }]}
         onCompleted={data => {
           const { AddPlace } = data;
           if (AddPlace.ok) {
@@ -57,6 +57,7 @@ class AddPlaceContainer extends React.Component<RouteComponentProps, IState> {
             name={name}
             loading={loading}
             onSubmit={addPlaceFn}
+            pickedAddress={lat !== 0 && lng !== 0}
           />
         )}
       </AddPlaceMutation>

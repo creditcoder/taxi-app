@@ -8,3 +8,4 @@
 ### Possible updates:
 
 - [ ] loading component
+- [ ] sorting places alphabetically

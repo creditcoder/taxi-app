@@ -46,6 +46,13 @@ const AddButton = styled(Button)`
     background: ${props =>
       css`linear-gradient(${props.theme.yellowColor}, ${props.theme.orangeColor})`};
   }
+  &:disabled {
+    &:hover {
+      box-shadow: 0 2px 25px ${props => props.theme.blueColor};
+      background: ${props =>
+        css`linear-gradient(${props.theme.blueColor}, ${props.theme.darkBlueColor})`};
+    }
+  }
 `;
 
 interface IProps {
@@ -54,6 +61,7 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
   onSubmit: MutationFn;
+  pickedAddress: boolean;
 }
 
 const AddPlacePresenter: React.FC<IProps> = ({
@@ -61,7 +69,8 @@ const AddPlacePresenter: React.FC<IProps> = ({
   name,
   onInputChange,
   loading,
-  onSubmit
+  onSubmit,
+  pickedAddress
 }) => (
   <>
     <Helmet>
@@ -89,7 +98,11 @@ const AddPlacePresenter: React.FC<IProps> = ({
         <ExtendedLink to={"/find-address"}>
           <FindButton onClick={null} value={"Pick from Map"} />
         </ExtendedLink>
-        <AddButton onClick={null} value={loading ? "Adding" : "Add Place"} />
+        <AddButton
+          disabled={!pickedAddress}
+          onClick={null}
+          value={loading ? "Adding" : "Add Place"}
+        />
       </ExtendedForm>
     </Layout>
   </>
