@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { toast } from "react-toastify";
+import { reverseGeoCode } from "../../mapHelpers";
 import FindAddressPresenter from "./FindAddressPresenter";
 
 interface IState {
@@ -58,6 +59,7 @@ class FindAddressContainer extends React.Component<any, IState> {
     this.map = new maps.Map(mapNode, mapConfig);
     this.map.addListener("dragend", this.handleDragEnd);
   };
+
   public handleDragEnd = () => {
     const newCenter = this.map.getCenter();
     const lat = newCenter.lat();
@@ -66,6 +68,20 @@ class FindAddressContainer extends React.Component<any, IState> {
       lat,
       lng
     });
+    reverseGeoCode(lat, lng);
+  };
+
+  public onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value }
+    } = event;
+    this.setState(({
+      [name]: value
+    } as unknown) as IState);
+  };
+
+  public onInputBlur = () => {
+    console.log("New adding in input! [address]");
   };
 }
 

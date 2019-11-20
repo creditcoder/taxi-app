@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/googlemaps": "^3.38.0",
     "@types/react-sidebar": "^3.0.0",
     "tslint": "^5.20.1",
