@@ -1,6 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import AddressBar from "../../Components/AddressBar";
+import Button from "../../Components/Button";
 import styled from "../../typed-components";
 
 const Map = styled.div`
@@ -26,16 +27,35 @@ const Centered = styled.div`
 
 const Icon = styled.span``;
 
+const ExtendedButton = styled(Button)`
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10;
+  height: auto;
+  max-width: 400px;
+  width: 80%;
+`;
+
 interface IProps {
   mapRef: any;
   address: string;
   onInputBlur: () => void;
+  onPickPlace: () => void;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class FindAddressPresenter extends React.Component<IProps> {
   public render() {
-    const { mapRef, address, onInputBlur, onInputChange } = this.props;
+    const {
+      mapRef,
+      address,
+      onInputBlur,
+      onInputChange,
+      onPickPlace
+    } = this.props;
     return (
       <div>
         <Helmet>
@@ -47,6 +67,7 @@ class FindAddressPresenter extends React.Component<IProps> {
           name={"address"}
           value={address}
         />
+        <ExtendedButton value={"Pick this place"} onClick={onPickPlace} />
         <Centered>
           <Icon>
             <svg

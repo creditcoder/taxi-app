@@ -55,6 +55,7 @@ class FindAddressContainer extends React.Component<any, IState> {
         address={address}
         onInputChange={this.onInputChange}
         onInputBlur={this.onInputBlur}
+        onPickPlace={this.onPickPlace}
       />
     );
   }
@@ -108,6 +109,19 @@ class FindAddressContainer extends React.Component<any, IState> {
       // pushing map to new center with coords (lat, lng)
       this.map.panTo({ lat, lng });
     }
+  };
+
+  public onPickPlace = () => {
+    const {address, lat, lng} = this.state;
+    const {history} = this.props;
+    history.push({
+      pathname: "/add-place",
+      state: {
+        address,
+        lat,
+        lng
+      }
+    })
   };
 
   public reverseGeocodeAddress = async (lat: number, lng: number) => {
