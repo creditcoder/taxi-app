@@ -9,11 +9,12 @@ export const geoCode = async (address: string) => {
     const { results } = data;
     const firstPlace = results[0];
     const {
+      formatted_address,
       geometry: {
         location: { lat, lng }
       }
     } = firstPlace;
-    return { lat, lng };
+    return { formatted_address, lat, lng };
   } else {
     toast.error(data.error_message);
     return false;
