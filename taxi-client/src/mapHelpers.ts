@@ -14,5 +14,6 @@ export const reverseGeoCode = async (lat: number, lng: number) => {
     return address;
   } else {
     toast.error(data.error_message);
+    return false;
   }
 };
