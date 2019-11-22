@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { toast } from "react-toastify";
-import { reverseGeoCode } from "../../mapHelpers";
+import { geoCode, reverseGeoCode } from "../../mapHelpers";
 import FindAddressPresenter from "./FindAddressPresenter";
 
 interface IState {
@@ -96,7 +96,8 @@ class FindAddressContainer extends React.Component<any, IState> {
   };
 
   public onInputBlur = () => {
-    console.log("New adding in input! [address]");
+    const { address } = this.state;
+    geoCode(address);
   };
 
   public reverseGeocodeAddress = async (lat: number, lng: number) => {
