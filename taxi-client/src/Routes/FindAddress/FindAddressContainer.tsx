@@ -5,6 +5,7 @@ import { reverseGeoCode } from "../../mapHelpers";
 import FindAddressPresenter from "./FindAddressPresenter";
 
 interface IState {
+  address: string;
   lat: number;
   lng: number;
 }
@@ -16,6 +17,11 @@ class FindAddressContainer extends React.Component<any, IState> {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
+    this.state = {
+      address: "",
+      lat: 0,
+      lng: 0
+    };
   }
 
   public componentDidMount() {
@@ -41,7 +47,15 @@ class FindAddressContainer extends React.Component<any, IState> {
   };
 
   public render() {
-    return <FindAddressPresenter mapRef={this.mapRef} />;
+    const { address } = this.state;
+    return (
+      <FindAddressPresenter
+        mapRef={this.mapRef}
+        address={address}
+        onInputChange={this.onInputChange}
+        onInputBlur={this.onInputBlur}
+      />
+    );
   }
 
   public loadMap = (lat, lng) => {
@@ -60,15 +74,16 @@ class FindAddressContainer extends React.Component<any, IState> {
     this.map.addListener("dragend", this.handleDragEnd);
   };
 
-  public handleDragEnd = () => {
+  public handleDragEnd = async () => {
     const newCenter = this.map.getCenter();
     const lat = newCenter.lat();
     const lng = newCenter.lng();
+    const reversedAddress = await reverseGeoCode(lat, lng);
     this.setState({
+      address: reversedAddress,
       lat,
       lng
     });
-    reverseGeoCode(lat, lng);
   };
 
   public onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -28,22 +28,25 @@ const Icon = styled.span``;
 
 interface IProps {
   mapRef: any;
+  address: string;
+  onInputBlur: () => void;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class FindAddressPresenter extends React.Component<IProps> {
   public render() {
-    const { mapRef } = this.props;
+    const { mapRef, address, onInputBlur, onInputChange } = this.props;
     return (
       <div>
         <Helmet>
           <title>Find Address | Taxi</title>
         </Helmet>
         <AddressBar
-          onBlur={() => {return;}}
-          onChange={(event) => {return;}}
+          onBlur={onInputBlur}
+          onChange={onInputChange}
           name={"address"}
-          value={"address"}
-          />
+          value={address}
+        />
         <Centered>
           <Icon>
             <svg
