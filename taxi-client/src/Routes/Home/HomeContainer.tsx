@@ -84,6 +84,34 @@ class HomeContainer extends React.Component<IProps, IState> {
       zoom: 11
     };
     this.map = new maps.Map(mapNode, mapConfig);
+    const userMarkerOptions: google.maps.MarkerOptions = {
+      icon: {
+        path: maps.SymbolPath.CIRCLE,
+        scale: 7
+      },
+      position: {
+        lat,
+        lng
+      }
+    };
+    this.userMarker = new maps.Marker(userMarkerOptions);
+    this.userMarker.setMap(this.map);
+    const watchOptions: PositionOptions = {
+      enableHighAccuracy: true
+    };
+    navigator.geolocation.watchPosition(
+      this.handleGeoWatchSuccess,
+      this.handleGeoWatchError,
+      watchOptions
+    );
+  };
+
+  public handleGeoWatchSuccess = (position: Position) => {
+    console.log(position);
+  };
+
+  public handleGeoWatchError = () => {
+    console.log("error watching on us");
   };
 
   public toggleMenu = () => {

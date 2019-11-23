@@ -9,7 +9,6 @@ import Place from "../../Components/Place";
 import styled from "../../typed-components";
 import { getPlaces, userProfile } from "../../types/api";
 
-
 const Image = styled.img`
   margin: 0 20px;
   height: 60px;
@@ -91,15 +90,17 @@ const SettingsPresenter: React.FC<IProps> = ({
       </GridLink>
       {!placesLoading &&
         places &&
-        places.map(place => (
-          <Place
-            key={place!.id}
-            id={place!.id}
-            fav={place!.isFav}
-            name={place!.name}
-            address={place!.address}
-          />
-        ))}
+        places
+          .sort((a, b) => a!.id - b!.id)
+          .map(place => (
+            <Place
+              key={place!.id}
+              id={place!.id}
+              fav={place!.isFav}
+              name={place!.name}
+              address={place!.address}
+            />
+          ))}
       <FlexLink to={"/places"}>
         <ExtendedButton value={"Go to Places"} onClick={null} />
       </FlexLink>
