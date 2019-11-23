@@ -5,13 +5,28 @@ import { Layout } from "../../Components/Container";
 import Menu from "../../Components/Menu";
 import styled from "../../typed-components";
 
+const Button = styled.button`
+  appearance: none;
+  padding: 10px;
+  position: absolute;
+  left: 15px;
+  text-align: center;
+  font-weight: 900;
+  border: 0;
+  cursor: pointer;
+  font-size: 30px;
+  color: ${props => props.theme.violetColor};
+  transform: rotate(90deg);
+  z-index: 2;
+  background-color: transparent;
+`;
+
 const Map = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 1;
 `;
 
 interface IProps {
@@ -44,9 +59,9 @@ const HomePresenter: React.FC<IProps> = ({
         }
       }}
     >
-      {!loading && <button onClick={toggleMenu}>Open sidebar</button>}
+      {!loading && <Button onClick={toggleMenu}>|||</Button>}
+      <Map ref={mapRef} />
     </Sidebar>
-    <Map ref={mapRef} />
   </Layout>
 );
 

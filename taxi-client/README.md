@@ -9,3 +9,4 @@
 
 - [ ] loading component
 - [ ] sorting places alphabetically
+- [ ] reset styles(margin etc)
