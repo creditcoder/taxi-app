@@ -31,7 +31,7 @@ class FindAddressContainer extends React.Component<any, IState> {
     );
   }
 
-  public handleGeoSuccess = (position: Position) => {
+  public handleGeoSuccess: PositionCallback = (position: Position) => {
     const {
       coords: { latitude, longitude }
     } = position;
@@ -43,7 +43,7 @@ class FindAddressContainer extends React.Component<any, IState> {
     this.reverseGeocodeAddress(latitude, longitude);
   };
 
-  public handleGeoError = () => {
+  public handleGeoError: PositionErrorCallback = () => {
     toast.error("Error in getting your current position");
   };
 
@@ -112,8 +112,8 @@ class FindAddressContainer extends React.Component<any, IState> {
   };
 
   public onPickPlace = () => {
-    const {address, lat, lng} = this.state;
-    const {history} = this.props;
+    const { address, lat, lng } = this.state;
+    const { history } = this.props;
     history.push({
       pathname: "/add-place",
       state: {
@@ -121,7 +121,7 @@ class FindAddressContainer extends React.Component<any, IState> {
         lat,
         lng
       }
-    })
+    });
   };
 
   public reverseGeocodeAddress = async (lat: number, lng: number) => {
