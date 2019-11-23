@@ -3,17 +3,27 @@ import Helmet from "react-helmet";
 import Sidebar from "react-sidebar";
 import { Layout } from "../../Components/Container";
 import Menu from "../../Components/Menu";
+import styled from "../../typed-components";
+
+const Map = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+`;
 
 interface IProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
   loading: boolean;
+  mapRef: any;
 }
 
 const HomePresenter: React.FC<IProps> = ({
   isMenuOpen,
   toggleMenu,
-  loading
+  loading,
+  mapRef
 }) => (
   <Layout>
     <Helmet>
@@ -32,7 +42,8 @@ const HomePresenter: React.FC<IProps> = ({
         }
       }}
     >
-      {!loading && <button onClick={() => toggleMenu()}>Open sidebar</button>}
+      {!loading && <button onClick={toggleMenu}>Open sidebar</button>}
+      <Map ref={mapRef} />
     </Sidebar>
   </Layout>
 );
