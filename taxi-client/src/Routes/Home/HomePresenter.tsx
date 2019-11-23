@@ -7,9 +7,11 @@ import styled from "../../typed-components";
 
 const Map = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  z-index: 999;
+  z-index: 1;
 `;
 
 interface IProps {
@@ -43,8 +45,8 @@ const HomePresenter: React.FC<IProps> = ({
       }}
     >
       {!loading && <button onClick={toggleMenu}>Open sidebar</button>}
-      <Map ref={mapRef} />
     </Sidebar>
+    <Map ref={mapRef} />
   </Layout>
 );
 
