@@ -14,6 +14,8 @@ interface IState {
   toAddress: string;
   toLat: number;
   toLng: number;
+  distance?: string;
+  duration?: string;
 }
 
 interface IProps {
@@ -136,8 +138,33 @@ class HomeContainer extends React.Component<IProps, IState> {
       },
       suppressMarkers: true
     };
+    this.directions = new google.maps.DirectionsRenderer(renderOptions);
     const directionsService: google.maps.DirectionsService = new google.maps.DirectionsService();
-    
+    const to = new google.maps.LatLng(toLat, toLng);
+    const from = new google.maps.LatLng(lat, lng);
+    const directionOptions: google.maps.DirectionsRequest = {
+      destination: to,
+      origin: from,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    // here can setState loading to display loading on button
+    directionsService.route(directionOptions, (result, status) => {
+      if(status === google.maps.DirectionsStatus.OK) {
+        const { routes } = result;
+        const {
+          distance: { text: distance },
+          duration: { text: duration }
+        } = routes[0].legs[0];
+        this.setState({
+          distance, 
+          duration
+        });
+        this.directions.setDirections(result);
+        this.directions.setMap(this.map);
+      } else {
+        toast.error("There is no way. You have to swim");
+      }
+    });
   };
 
   public loadMap = (lat, lng) => {
