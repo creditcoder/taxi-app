@@ -10,6 +10,7 @@ interface IState {
   isMenuOpen: boolean;
   lat: number;
   lng: number;
+  toAddress: string;
 }
 
 interface IProps {
@@ -28,7 +29,8 @@ class HomeContainer extends React.Component<IProps, IState> {
     this.state = {
       isMenuOpen: false,
       lat: 0,
-      lng: 0
+      lng: 0,
+      toAddress: ""
     };
   }
 
@@ -36,6 +38,25 @@ class HomeContainer extends React.Component<IProps, IState> {
     navigator.geolocation.getCurrentPosition(
       this.handleGeoSucces,
       this.handleGeoError
+    );
+  }
+
+  public render() {
+    const { isMenuOpen, toAddress } = this.state;
+    return (
+      <ProfileQuery query={USER_PROFILE}>
+        {({ loading }) => (
+          <HomePresenter
+            loading={loading}
+            isMenuOpen={isMenuOpen}
+            toggleMenu={this.toggleMenu}
+            mapRef={this.mapRef}
+            toAddress={toAddress}
+            onAddressSubmit={this.onAddressSubmit}
+            onInputChange={this.onInputChange}
+          />
+        )}
+      </ProfileQuery>
     );
   }
 
@@ -54,21 +75,16 @@ class HomeContainer extends React.Component<IProps, IState> {
     toast.error("Error in getting your current position");
   };
 
-  public render() {
-    const { isMenuOpen } = this.state;
-    return (
-      <ProfileQuery query={USER_PROFILE}>
-        {({ loading }) => (
-          <HomePresenter
-            loading={loading}
-            isMenuOpen={isMenuOpen}
-            toggleMenu={this.toggleMenu}
-            mapRef={this.mapRef}
-          />
-        )}
-      </ProfileQuery>
-    );
-  }
+  public onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value }
+    } = event;
+    this.setState(({ [name]: value } as unknown) as IState);
+  };
+
+  public onAddressSubmit = () => {
+    console.log("Address was submitted");
+  };
 
   public loadMap = (lat, lng) => {
     const { google } = this.props;
