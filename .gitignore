@@ -63,3 +63,5 @@ typings/
 build/
 
 package-lock.json
+
+keys.ts

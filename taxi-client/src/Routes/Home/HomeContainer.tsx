@@ -127,6 +127,27 @@ class HomeContainer extends React.Component<IProps, IState> {
     }
   };
 
+  public handleRouteRequest = (
+    result: google.maps.DirectionsResult,
+    status: google.maps.DirectionsStatus
+  ) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      const { routes } = result;
+      const {
+        distance: { text: distance },
+        duration: { text: duration }
+      } = routes[0].legs[0];
+      this.setState({
+        distance,
+        duration
+      });
+      this.directions.setDirections(result);
+      this.directions.setMap(this.map);
+    } else {
+      toast.error("There is no way. You have to swim");
+    }
+  };
+
   public createPath = () => {
     const { toLat, toLng, lat, lng } = this.state;
     if (this.directions) {
@@ -148,23 +169,7 @@ class HomeContainer extends React.Component<IProps, IState> {
       travelMode: google.maps.TravelMode.DRIVING
     };
     // here can setState loading to display loading on button
-    directionsService.route(directionOptions, (result, status) => {
-      if(status === google.maps.DirectionsStatus.OK) {
-        const { routes } = result;
-        const {
-          distance: { text: distance },
-          duration: { text: duration }
-        } = routes[0].legs[0];
-        this.setState({
-          distance, 
-          duration
-        });
-        this.directions.setDirections(result);
-        this.directions.setMap(this.map);
-      } else {
-        toast.error("There is no way. You have to swim");
-      }
-    });
+    directionsService.route(directionOptions, this.handleRouteRequest);
   };
 
   public loadMap = (lat, lng) => {
