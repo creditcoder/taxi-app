@@ -16,6 +16,7 @@ interface IState {
   toLng: number;
   distance?: string;
   duration?: string;
+  price?: number;
 }
 
 interface IProps {
@@ -52,7 +53,7 @@ class HomeContainer extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const { isMenuOpen, toAddress } = this.state;
+    const { isMenuOpen, toAddress, price } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
         {({ loading }) => (
@@ -64,6 +65,7 @@ class HomeContainer extends React.Component<IProps, IState> {
             toAddress={toAddress}
             onAddressSubmit={this.onAddressSubmit}
             onInputChange={this.onInputChange}
+            price={price}
           />
         )}
       </ProfileQuery>
@@ -137,14 +139,26 @@ class HomeContainer extends React.Component<IProps, IState> {
         distance: { text: distance },
         duration: { text: duration }
       } = routes[0].legs[0];
-      this.setState({
-        distance,
-        duration
-      });
+      this.setState(
+        {
+          distance,
+          duration
+        },
+        this.setPrice
+      );
       this.directions.setDirections(result);
       this.directions.setMap(this.map);
     } else {
       toast.error("There is no way. You have to swim");
+    }
+  };
+
+  public setPrice = () => {
+    const { distance } = this.state;
+    if (distance) {
+      this.setState({
+        price: parseFloat(distance.replace(",", ""))
+      });
     }
   };
 
