@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import ReactDOM from "react-dom";
 import { toast } from "react-toastify";
+import { geoCode } from "../../mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import { userProfile } from "../../types/api";
 import HomePresenter from "./HomePresenter";
@@ -11,6 +12,8 @@ interface IState {
   lat: number;
   lng: number;
   toAddress: string;
+  toLat: number;
+  toLng: number;
 }
 
 interface IProps {
@@ -23,6 +26,8 @@ class HomeContainer extends React.Component<IProps, IState> {
   public mapRef: any;
   public map: google.maps.Map;
   public userMarker: google.maps.Marker;
+  public toMarker: google.maps.Marker;
+
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
@@ -30,7 +35,9 @@ class HomeContainer extends React.Component<IProps, IState> {
       isMenuOpen: false,
       lat: 0,
       lng: 0,
-      toAddress: ""
+      toAddress: "",
+      toLat: 0,
+      toLng: 0
     };
   }
 
@@ -82,8 +89,32 @@ class HomeContainer extends React.Component<IProps, IState> {
     this.setState(({ [name]: value } as unknown) as IState);
   };
 
-  public onAddressSubmit = () => {
-    console.log("Address was submitted");
+  public onAddressSubmit = async () => {
+    const { toAddress } = this.state;
+    const {
+      google: { maps }
+    } = this.props;
+    const result = await geoCode(toAddress);
+    if (result !== false) {
+      const { lat, lng, formatted_address } = result;
+      this.setState({
+        toAddress: formatted_address,
+        toLat: lat,
+        toLng: lng
+      });
+      if (this.toMarker) {
+        // delete already existing route to finish ride address
+        this.toMarker.setMap(null);
+      }
+      const toMarkerOptions: google.maps.MarkerOptions = {
+        position: {
+          lat,
+          lng
+        }
+      };
+      this.toMarker = new maps.Marker(toMarkerOptions);
+      this.toMarker.setMap(this.map);
+    }
   };
 
   public loadMap = (lat, lng) => {
@@ -97,7 +128,7 @@ class HomeContainer extends React.Component<IProps, IState> {
       },
       disableDefaultUI: true,
       minZoom: 8,
-      zoom: 11
+      zoom: 14
     };
     this.map = new maps.Map(mapNode, mapConfig);
     const userMarkerOptions: google.maps.MarkerOptions = {
@@ -131,7 +162,7 @@ class HomeContainer extends React.Component<IProps, IState> {
   };
 
   public handleGeoWatchError = () => {
-    console.log("error watching on us");
+    toast.error("An error occured in getting your position");
   };
 
   public toggleMenu = () => {
