@@ -2349,7 +2349,7 @@
                 "defaultValue": null
               },
               {
-                "name": "LastLng",
+                "name": "lastLng",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
