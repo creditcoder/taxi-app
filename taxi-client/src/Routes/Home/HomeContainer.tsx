@@ -66,7 +66,13 @@ class HomeContainer extends React.Component<IProps, IState> {
     return (
       <ProfileQuery query={USER_PROFILE}>
         {({ data, loading }) => (
-          <NearbyQueries query={GET_NEARBY_DRIVERS}>
+          <NearbyQueries
+            query={GET_NEARBY_DRIVERS}
+            skip={
+              data && data.GetMyProfile && data.GetMyProfile.user!.isDriving
+            }
+            onCompleted={this.handleNearbyDrivers}
+          >
             {() => (
               <HomePresenter
                 loading={loading}
@@ -85,6 +91,17 @@ class HomeContainer extends React.Component<IProps, IState> {
       </ProfileQuery>
     );
   }
+
+  public handleNearbyDrivers = (data: {} | getNearbyDrivers) => {
+    if ("GetNearbyDrivers" in data) {
+      const {
+        GetNearbyDrivers: { drivers, ok }
+      } = data;
+      if (ok && drivers) {
+        console.log(drivers);
+      }
+    }
+  };
 
   public handleGeoSucces: PositionCallback = (position: Position) => {
     const {
