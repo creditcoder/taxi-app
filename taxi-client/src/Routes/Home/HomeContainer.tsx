@@ -62,7 +62,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     const { isMenuOpen, toAddress, price } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
-        {({ loading }) => (
+        {({ data, loading }) => (
           <HomePresenter
             loading={loading}
             isMenuOpen={isMenuOpen}
@@ -72,6 +72,7 @@ class HomeContainer extends React.Component<IProps, IState> {
             onAddressSubmit={this.onAddressSubmit}
             onInputChange={this.onInputChange}
             price={price}
+            data={data}
           />
         )}
       </ProfileQuery>
