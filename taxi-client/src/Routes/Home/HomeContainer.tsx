@@ -40,10 +40,12 @@ class HomeContainer extends React.Component<IProps, IState> {
   public userMarker: google.maps.Marker;
   public toMarker: google.maps.Marker;
   public directions: google.maps.DirectionsRenderer;
+  public drivers: google.maps.Marker[];
 
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
+    this.drivers = [];
     this.state = {
       isMenuOpen: false,
       lat: 0,
@@ -98,7 +100,25 @@ class HomeContainer extends React.Component<IProps, IState> {
         GetNearbyDrivers: { drivers, ok }
       } = data;
       if (ok && drivers) {
-        console.log(drivers);
+        for (const driver of drivers) {
+          if (driver && driver.lastLat && driver.lastLng) {
+            const markerOptions: google.maps.MarkerOptions = {
+              icon: {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 5
+              },
+              position: {
+                lat: driver.lastLat,
+                lng: driver.lastLng
+              }
+            };
+            const newMarker: google.maps.Marker = new google.maps.Marker(
+              markerOptions
+            );
+            newMarker.set("ID", driver.id);
+            newMarker.setMap(this.map);
+          }
+        }
       }
     }
   };
