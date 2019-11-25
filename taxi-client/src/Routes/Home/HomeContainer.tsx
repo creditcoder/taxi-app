@@ -1,21 +1,29 @@
 import React from "react";
-import { graphql, MutationFn, Query } from "react-apollo";
+import { graphql, Mutation, MutationFn, Query } from "react-apollo";
 import ReactDOM from "react-dom";
 import { toast } from "react-toastify";
-import { geoCode } from "../../mapHelpers";
+import { geoCode, reverseGeoCode } from "../../mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import {
   getNearbyDrivers,
   reportMovement,
   reportMovementVariables,
+  requestRide,
+  requestRideVariables,
   userProfile
 } from "../../types/api";
 import HomePresenter from "./HomePresenter";
-import { GET_NEARBY_DRIVERS, REPORT_LOCATION } from "./HomeQueries";
+import {
+  GET_NEARBY_DRIVERS,
+  REPORT_LOCATION,
+  REQUEST_RIDE
+} from "./HomeQueries";
 
 class ProfileQuery extends Query<userProfile> {}
 
 class NearbyQueries extends Query<getNearbyDrivers> {}
+
+class RequestRideMutation extends Mutation<requestRide, requestRideVariables> {}
 
 interface IState {
   isMenuOpen: boolean;
@@ -27,6 +35,7 @@ interface IState {
   distance?: string;
   duration?: string;
   price?: number;
+  fromAddress: string;
 }
 
 interface IProps {
@@ -47,6 +56,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     this.mapRef = React.createRef();
     this.drivers = [];
     this.state = {
+      fromAddress: "",
       isMenuOpen: false,
       lat: 0,
       lng: 0,
@@ -64,7 +74,18 @@ class HomeContainer extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const { isMenuOpen, toAddress, price } = this.state;
+    const {
+      distance,
+      isMenuOpen,
+      toAddress,
+      price,
+      fromAddress,
+      toLat,
+      toLng,
+      lat,
+      lng,
+      duration
+    } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
         {({ data, loading }) => (
@@ -77,17 +98,35 @@ class HomeContainer extends React.Component<IProps, IState> {
             onCompleted={this.handleNearbyDrivers}
           >
             {() => (
-              <HomePresenter
-                loading={loading}
-                isMenuOpen={isMenuOpen}
-                toggleMenu={this.toggleMenu}
-                mapRef={this.mapRef}
-                toAddress={toAddress}
-                onAddressSubmit={this.onAddressSubmit}
-                onInputChange={this.onInputChange}
-                price={price}
-                data={data}
-              />
+              <RequestRideMutation
+                mutation={REQUEST_RIDE}
+                variables={{
+                  distance: distance || "",
+                  dropOffAddress: toAddress,
+                  dropOffLat: toLat,
+                  dropOffLng: toLng,
+                  duration: duration || "",
+                  pickUpAddress: fromAddress,
+                  pickUpLat: lat,
+                  pickUpLng: lng,
+                  price: price || 0
+                }}
+              >
+                {requestRideFn => (
+                  <HomePresenter
+                    loading={loading}
+                    isMenuOpen={isMenuOpen}
+                    toggleMenu={this.toggleMenu}
+                    mapRef={this.mapRef}
+                    toAddress={toAddress}
+                    onAddressSubmit={this.onAddressSubmit}
+                    onInputChange={this.onInputChange}
+                    price={price}
+                    data={data}
+                    requestRideFn={requestRideFn}
+                  />
+                )}
+              </RequestRideMutation>
             )}
           </NearbyQueries>
         )}
@@ -150,6 +189,7 @@ class HomeContainer extends React.Component<IProps, IState> {
       lat: latitude,
       lng: longitude
     });
+    this.getFromAddress(latitude, longitude);
     this.loadMap(latitude, longitude);
   };
 
@@ -254,6 +294,15 @@ class HomeContainer extends React.Component<IProps, IState> {
     };
     // here can setState loading to display loading on button
     directionsService.route(directionOptions, this.handleRouteRequest);
+  };
+
+  public getFromAddress = async (lat: number, lng: number) => {
+    const address = await reverseGeoCode(lat, lng);
+    if (address) {
+      this.setState({
+        fromAddress: address
+      });
+    }
   };
 
   public loadMap = (lat, lng) => {
