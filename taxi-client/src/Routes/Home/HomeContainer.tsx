@@ -100,6 +100,7 @@ class HomeContainer extends React.Component<IProps, IState> {
             {() => (
               <RequestRideMutation
                 mutation={REQUEST_RIDE}
+                onCompleted={this.handleRideRequest}
                 variables={{
                   distance: distance || "",
                   dropOffAddress: toAddress,
@@ -133,6 +134,15 @@ class HomeContainer extends React.Component<IProps, IState> {
       </ProfileQuery>
     );
   }
+
+  public handleRideRequest = (data: requestRide) => {
+    const { RequestRide } = data;
+    if (RequestRide.ok) {
+      toast.success("Drive was requested. Finding a driver");
+    } else {
+      toast.error(RequestRide.error);
+    }
+  };
 
   public handleNearbyDrivers = (data: {} | getNearbyDrivers) => {
     if ("GetNearbyDrivers" in data) {

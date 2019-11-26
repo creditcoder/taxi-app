@@ -52,3 +52,13 @@ export const REQUEST_RIDE = gql`
     }
   }
 `;
+
+export const GET_NEARBY_RIDE = gql`
+  query getRides{
+    GetNearbyRide {
+      ok
+      error
+      ride
+    }
+  }
+`;
