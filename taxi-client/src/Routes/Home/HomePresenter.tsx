@@ -7,7 +7,7 @@ import Button from "../../Components/Button";
 import { Layout } from "../../Components/Container";
 import Menu from "../../Components/Menu";
 import styled from "../../typed-components";
-import { userProfile } from "../../types/api";
+import { getRide, userProfile } from "../../types/api";
 
 const MenuButton = styled.button`
   appearance: none;
@@ -60,6 +60,7 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   data?: userProfile;
   requestRideFn?: MutationFn;
+  nearbyRide?: getRide;
 }
 
 const HomePresenter: React.FC<IProps> = ({
@@ -72,7 +73,8 @@ const HomePresenter: React.FC<IProps> = ({
   onAddressSubmit,
   price,
   data: { GetMyProfile: { user = null } = {} } = {},
-  requestRideFn
+  requestRideFn,
+  nearbyRide
 }) => (
   <Layout>
     <Helmet>

@@ -178,6 +178,41 @@ export interface requestRideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: getRide
+// ====================================================
+
+export interface getRide_GetNearbyRide_ride_passenger {
+  __typename: "User";
+  fullName: string | null;
+  profilePhoto: string | null;
+}
+
+export interface getRide_GetNearbyRide_ride {
+  __typename: "Ride";
+  id: number;
+  pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  passenger: getRide_GetNearbyRide_ride_passenger;
+}
+
+export interface getRide_GetNearbyRide {
+  __typename: "GetNearbyRideResponse";
+  ok: boolean;
+  error: string | null;
+  ride: getRide_GetNearbyRide_ride | null;
+}
+
+export interface getRide {
+  GetNearbyRide: getRide_GetNearbyRide;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: startPhoneVerification
 // ====================================================
 

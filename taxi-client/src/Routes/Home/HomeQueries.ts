@@ -54,11 +54,21 @@ export const REQUEST_RIDE = gql`
 `;
 
 export const GET_NEARBY_RIDE = gql`
-  query getRides{
+  query getRide {
     GetNearbyRide {
       ok
       error
-      ride
+      ride {
+        id
+        pickUpAddress
+        dropOffAddress
+        price
+        distance
+        passenger {
+          fullName
+          profilePhoto
+        }
+      }
     }
   }
 `;
