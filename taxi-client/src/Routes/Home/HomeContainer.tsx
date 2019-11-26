@@ -119,7 +119,7 @@ class HomeContainer extends React.Component<IProps, IState> {
                 }}
               >
                 {requestRideFn => (
-                  <GetNearbyRide query={GET_NEARBY_RIDE} skip={isDriving}>
+                  <GetNearbyRide query={GET_NEARBY_RIDE} skip={!isDriving}>
                     {({ data: nearbyRide }) => (
                       <HomePresenter
                         loading={loading}

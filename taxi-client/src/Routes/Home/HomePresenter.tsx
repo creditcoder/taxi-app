@@ -116,6 +116,7 @@ const HomePresenter: React.FC<IProps> = ({
           value={`Request ride ($${price})`}
         />
       )}
+      {nearbyRide && nearbyRide.GetNearbyRide && "Someone requests your car"}
       <Map ref={mapRef} />
     </Sidebar>
   </Layout>
