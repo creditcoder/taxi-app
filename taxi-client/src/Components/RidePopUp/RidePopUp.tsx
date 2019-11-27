@@ -34,12 +34,19 @@ const Data = styled.span`
 const Passenger = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 const Image = styled.img`
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   margin-right: 20px;
+`;
+
+const CenteredButton = styled(Button)`
+  display: block;
+  margin: 0 auto;
 `;
 
 interface IProps {
@@ -77,7 +84,7 @@ const RidePopUp: React.FC<IProps> = ({
       <Image src={passengerPhoto} />
       <Data>{passengerName}</Data>
     </Passenger>
-    <Button
+    <CenteredButton
       onClick={() => acceptRideFn({ variables: { rideId: id } })}
       value="Accept Ride"
     />
