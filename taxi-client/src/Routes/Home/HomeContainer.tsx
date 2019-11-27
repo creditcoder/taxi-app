@@ -1,3 +1,4 @@
+import { SubscribeToMoreOptions } from "apollo-boost";
 import React from "react";
 import { graphql, Mutation, MutationFn, Query } from "react-apollo";
 import ReactDOM from "react-dom";
@@ -21,7 +22,8 @@ import {
   GET_NEARBY_DRIVERS,
   GET_NEARBY_RIDE,
   REPORT_LOCATION,
-  REQUEST_RIDE
+  REQUEST_RIDE,
+  SUBSCRIBE_NEARBY_RIDES
 } from "./HomeQueries";
 
 class ProfileQuery extends Query<userProfile> {}
@@ -125,26 +127,33 @@ class HomeContainer extends React.Component<IProps, IState> {
               >
                 {requestRideFn => (
                   <GetNearbyRide query={GET_NEARBY_RIDE} skip={!isDriving}>
-                    {({ data: nearbyRide }) => (
-                      <AcceptRide mutation={ACCEPT_RIDE}>
-                        {acceptRideFn => (
-                          <HomePresenter
-                            loading={loading}
-                            isMenuOpen={isMenuOpen}
-                            toggleMenu={this.toggleMenu}
-                            mapRef={this.mapRef}
-                            toAddress={toAddress}
-                            onAddressSubmit={this.onAddressSubmit}
-                            onInputChange={this.onInputChange}
-                            price={price}
-                            data={data}
-                            requestRideFn={requestRideFn}
-                            nearbyRide={nearbyRide}
-                            acceptRideFn={acceptRideFn}
-                          />
-                        )}
-                      </AcceptRide>
-                    )}
+                    {({ subscribeToMore, data: nearbyRide }) => {
+                      const rideSubscriptionOptions: SubscribeToMoreOptions = {
+                        document: SUBSCRIBE_NEARBY_RIDES,
+                        updateQuery: this.handleSubscriptionUpdate
+                      };
+                      subscribeToMore(rideSubscriptionOptions);
+                      return (
+                        <AcceptRide mutation={ACCEPT_RIDE}>
+                          {acceptRideFn => (
+                            <HomePresenter
+                              loading={loading}
+                              isMenuOpen={isMenuOpen}
+                              toggleMenu={this.toggleMenu}
+                              mapRef={this.mapRef}
+                              toAddress={toAddress}
+                              onAddressSubmit={this.onAddressSubmit}
+                              onInputChange={this.onInputChange}
+                              price={price}
+                              data={data}
+                              requestRideFn={requestRideFn}
+                              nearbyRide={nearbyRide}
+                              acceptRideFn={acceptRideFn}
+                            />
+                          )}
+                        </AcceptRide>
+                      );
+                    }}
                   </GetNearbyRide>
                 )}
               </RequestRideMutation>
@@ -174,6 +183,10 @@ class HomeContainer extends React.Component<IProps, IState> {
     } else {
       toast.error(RequestRide.error);
     }
+  };
+
+  public handleSubscriptionUpdate = data => {
+    console.log(data);
   };
 
   public handleNearbyDrivers = (data: {} | getNearbyDrivers) => {

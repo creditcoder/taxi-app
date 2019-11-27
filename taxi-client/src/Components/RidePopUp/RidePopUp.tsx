@@ -76,7 +76,7 @@ const RidePopUp: React.FC<IProps> = ({
     <Title>Drop off Address</Title>
     <Data>{dropOffAddress}</Data>
     <Title>Price</Title>
-    <Data>{price}</Data>
+    <Data>${price}</Data>
     <Title>Distance</Title>
     <Data>{distance}</Data>
     <Title>Passenger:</Title>
