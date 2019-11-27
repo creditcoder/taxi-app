@@ -178,34 +178,34 @@ export interface requestRideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: getRide
+// GraphQL query operation: getRides
 // ====================================================
 
-export interface getRide_GetNearbyRide_ride_passenger {
+export interface getRides_GetNearbyRide_ride_passenger {
   __typename: "User";
   fullName: string | null;
   profilePhoto: string | null;
 }
 
-export interface getRide_GetNearbyRide_ride {
+export interface getRides_GetNearbyRide_ride {
   __typename: "Ride";
   id: number;
   pickUpAddress: string;
   dropOffAddress: string;
   price: number;
   distance: string;
-  passenger: getRide_GetNearbyRide_ride_passenger;
+  passenger: getRides_GetNearbyRide_ride_passenger;
 }
 
-export interface getRide_GetNearbyRide {
+export interface getRides_GetNearbyRide {
   __typename: "GetNearbyRideResponse";
   ok: boolean;
   error: string | null;
-  ride: getRide_GetNearbyRide_ride | null;
+  ride: getRides_GetNearbyRide_ride | null;
 }
 
-export interface getRide {
-  GetNearbyRide: getRide_GetNearbyRide;
+export interface getRides {
+  GetNearbyRide: getRides_GetNearbyRide;
 }
 
 /* tslint:disable */
@@ -279,6 +279,54 @@ export interface startPhoneVerification {
 
 export interface startPhoneVerificationVariables {
   phoneNumber: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: getRide
+// ====================================================
+
+export interface getRide_GetRide_ride_driver {
+  __typename: "User";
+  fullName: string | null;
+  profilePhoto: string | null;
+}
+
+export interface getRide_GetRide_ride_passenger {
+  __typename: "User";
+  fullName: string | null;
+  profilePhoto: string | null;
+}
+
+export interface getRide_GetRide_ride {
+  __typename: "Ride";
+  status: string;
+  pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  duration: string;
+  driver: getRide_GetRide_ride_driver;
+  passenger: getRide_GetRide_ride_passenger;
+  chatId: number | null;
+}
+
+export interface getRide_GetRide {
+  __typename: "GetRideResponse";
+  ok: boolean;
+  error: string | null;
+  ride: getRide_GetRide_ride | null;
+}
+
+export interface getRide {
+  GetRide: getRide_GetRide;
+}
+
+export interface getRideVariables {
+  rideId: number;
 }
 
 /* tslint:disable */

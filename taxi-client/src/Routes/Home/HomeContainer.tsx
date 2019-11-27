@@ -10,7 +10,7 @@ import {
   acceptRide,
   acceptRideVariables,
   getNearbyDrivers,
-  getRide,
+  getRides,
   reportMovement,
   reportMovementVariables,
   requestRide,
@@ -33,7 +33,7 @@ class NearbyQueries extends Query<getNearbyDrivers> {}
 
 class RequestRideMutation extends Mutation<requestRide, requestRideVariables> {}
 
-class GetNearbyRide extends Query<getRide> {}
+class GetNearbyRide extends Query<getRides> {}
 
 class AcceptRide extends Mutation<acceptRide, acceptRideVariables> {}
 

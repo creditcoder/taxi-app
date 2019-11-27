@@ -54,7 +54,7 @@ export const REQUEST_RIDE = gql`
 `;
 
 export const GET_NEARBY_RIDE = gql`
-  query getRide {
+  query getRides {
     GetNearbyRide {
       ok
       error
