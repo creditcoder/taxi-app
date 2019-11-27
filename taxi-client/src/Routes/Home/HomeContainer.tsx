@@ -2,6 +2,7 @@ import { SubscribeToMoreOptions } from "apollo-boost";
 import React from "react";
 import { graphql, Mutation, MutationFn, Query } from "react-apollo";
 import ReactDOM from "react-dom";
+import { RouteComponentProps } from "react-router";
 import { toast } from "react-toastify";
 import { geoCode, reverseGeoCode } from "../../mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
@@ -50,7 +51,7 @@ interface IState {
   isDriving: boolean;
 }
 
-interface IProps {
+interface IProps extends RouteComponentProps<any> {
   google: any;
   reportLocation: MutationFn;
 }
@@ -148,7 +149,10 @@ class HomeContainer extends React.Component<IProps, IState> {
                         subscribeToMore(rideSubscriptionOptions);
                       }
                       return (
-                        <AcceptRide mutation={ACCEPT_RIDE}>
+                        <AcceptRide
+                          mutation={ACCEPT_RIDE}
+                          onCompleted={this.handleRideAcceptance}
+                        >
                           {acceptRideFn => (
                             <HomePresenter
                               loading={loading}
@@ -191,11 +195,21 @@ class HomeContainer extends React.Component<IProps, IState> {
   };
 
   public handleRideRequest = (data: requestRide) => {
+    const { history } = this.props;
     const { RequestRide } = data;
     if (RequestRide.ok) {
       toast.success("Drive was requested. Finding a driver");
+      history.push(`/ride/${RequestRide.ride!.id}`);
     } else {
       toast.error(RequestRide.error);
+    }
+  };
+
+  public handleRideAcceptance = (data: acceptRide) => {
+    const { history } = this.props;
+    const { UpdateRideStatus } = data;
+    if (UpdateRideStatus.ok) {
+      history.push(`/ride/${UpdateRideStatus.rideId}`);
     }
   };
 

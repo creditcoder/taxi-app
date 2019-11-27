@@ -4,7 +4,7 @@ import styled from "../../typed-components";
 import Button from "../Button";
 
 const Container = styled.div`
-text-align: center;
+  text-align: center;
   position: absolute;
   margin: auto;
   top: 0;
