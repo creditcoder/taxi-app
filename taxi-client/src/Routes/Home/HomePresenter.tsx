@@ -6,6 +6,7 @@ import AddressBar from "../../Components/AddressBar";
 import Button from "../../Components/Button";
 import { Layout } from "../../Components/Container";
 import Menu from "../../Components/Menu";
+import RidePopUp from "../../Components/RidePopUp";
 import styled from "../../typed-components";
 import { getRide, userProfile } from "../../types/api";
 
@@ -61,6 +62,7 @@ interface IProps {
   data?: userProfile;
   requestRideFn?: MutationFn;
   nearbyRide?: getRide;
+  acceptRideFn: MutationFn;
 }
 
 const HomePresenter: React.FC<IProps> = ({
@@ -74,7 +76,8 @@ const HomePresenter: React.FC<IProps> = ({
   price,
   data: { GetMyProfile: { user = null } = {} } = {},
   requestRideFn,
-  nearbyRide
+  nearbyRide: { GetNearbyRide: { ride = null } = {} } = {},
+  acceptRideFn
 }) => (
   <Layout>
     <Helmet>
@@ -116,7 +119,18 @@ const HomePresenter: React.FC<IProps> = ({
           value={`Request ride ($${price})`}
         />
       )}
-      {nearbyRide && nearbyRide.GetNearbyRide && "Someone requests your car"}
+      {ride && (
+        <RidePopUp
+          id={ride.id}
+          pickUpAddress={ride.pickUpAddress}
+          dropOffAddress={ride.dropOffAddress}
+          price={ride.price}
+          distance={ride.distance}
+          passengerName={ride.passenger.fullName!}
+          passengerPhoto={ride.passenger.profilePhoto!}
+          acceptRideFn={acceptRideFn}
+        />
+      )}
       <Map ref={mapRef} />
     </Sidebar>
   </Layout>

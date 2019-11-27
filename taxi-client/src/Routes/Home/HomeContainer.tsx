@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { geoCode, reverseGeoCode } from "../../mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import {
+  acceptRide,
+  acceptRideVariables,
   getNearbyDrivers,
   getRide,
   reportMovement,
@@ -15,6 +17,7 @@ import {
 } from "../../types/api";
 import HomePresenter from "./HomePresenter";
 import {
+  ACCEPT_RIDE,
   GET_NEARBY_DRIVERS,
   GET_NEARBY_RIDE,
   REPORT_LOCATION,
@@ -28,6 +31,8 @@ class NearbyQueries extends Query<getNearbyDrivers> {}
 class RequestRideMutation extends Mutation<requestRide, requestRideVariables> {}
 
 class GetNearbyRide extends Query<getRide> {}
+
+class AcceptRide extends Mutation<acceptRide, acceptRideVariables> {}
 
 interface IState {
   isMenuOpen: boolean;
@@ -121,19 +126,24 @@ class HomeContainer extends React.Component<IProps, IState> {
                 {requestRideFn => (
                   <GetNearbyRide query={GET_NEARBY_RIDE} skip={!isDriving}>
                     {({ data: nearbyRide }) => (
-                      <HomePresenter
-                        loading={loading}
-                        isMenuOpen={isMenuOpen}
-                        toggleMenu={this.toggleMenu}
-                        mapRef={this.mapRef}
-                        toAddress={toAddress}
-                        onAddressSubmit={this.onAddressSubmit}
-                        onInputChange={this.onInputChange}
-                        price={price}
-                        data={data}
-                        requestRideFn={requestRideFn}
-                        nearbyRide={nearbyRide}
-                      />
+                      <AcceptRide mutation={ACCEPT_RIDE}>
+                        {acceptRideFn => (
+                          <HomePresenter
+                            loading={loading}
+                            isMenuOpen={isMenuOpen}
+                            toggleMenu={this.toggleMenu}
+                            mapRef={this.mapRef}
+                            toAddress={toAddress}
+                            onAddressSubmit={this.onAddressSubmit}
+                            onInputChange={this.onInputChange}
+                            price={price}
+                            data={data}
+                            requestRideFn={requestRideFn}
+                            nearbyRide={nearbyRide}
+                            acceptRideFn={acceptRideFn}
+                          />
+                        )}
+                      </AcceptRide>
                     )}
                   </GetNearbyRide>
                 )}
