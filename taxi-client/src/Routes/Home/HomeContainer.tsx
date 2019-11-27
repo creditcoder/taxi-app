@@ -69,7 +69,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     this.drivers = [];
     this.state = {
       fromAddress: "",
-      isDriving: true,
+      isDriving: false,
       isMenuOpen: false,
       lat: 0,
       lng: 0,
@@ -130,9 +130,23 @@ class HomeContainer extends React.Component<IProps, IState> {
                     {({ subscribeToMore, data: nearbyRide }) => {
                       const rideSubscriptionOptions: SubscribeToMoreOptions = {
                         document: SUBSCRIBE_NEARBY_RIDES,
-                        updateQuery: this.handleSubscriptionUpdate
+                        updateQuery: (prev, { subscriptionData }) => {
+                          if (!subscriptionData.data) {
+                            return;
+                          }
+                          const newObject = Object.assign({}, prev, {
+                            GetNearbyRide: {
+                              ...prev.GetNearbyRide,
+                              ride: subscriptionData.data.NearbyRideSubscription
+                            }
+                          });
+                          return newObject;
+                        }
                       };
-                      subscribeToMore(rideSubscriptionOptions);
+                      console.log(isDriving);
+                      if (isDriving) {
+                        subscribeToMore(rideSubscriptionOptions);
+                      }
                       return (
                         <AcceptRide mutation={ACCEPT_RIDE}>
                           {acceptRideFn => (
@@ -183,10 +197,6 @@ class HomeContainer extends React.Component<IProps, IState> {
     } else {
       toast.error(RequestRide.error);
     }
-  };
-
-  public handleSubscriptionUpdate = data => {
-    console.log(data);
   };
 
   public handleNearbyDrivers = (data: {} | getNearbyDrivers) => {
