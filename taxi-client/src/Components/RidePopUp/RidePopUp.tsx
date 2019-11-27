@@ -4,6 +4,7 @@ import styled from "../../typed-components";
 import Button from "../Button";
 
 const Container = styled.div`
+text-align: center;
   position: absolute;
   margin: auto;
   top: 0;
@@ -12,10 +13,12 @@ const Container = styled.div`
   right: 0;
   width: 80%;
   max-width: 600px;
-  height: 60%;
+  height: 530px;
   z-index: 9;
   padding: 20px;
   background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 18px 35px rgba(50, 50, 93, 0.1), 0 8px 15px rgba(0, 0, 0, 0.07);
 `;
 
 const Title = styled.h4`
@@ -34,6 +37,7 @@ const Data = styled.span`
 const Passenger = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 20px 0;
 `;
 
