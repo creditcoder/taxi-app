@@ -1,5 +1,7 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import styled from "../../typed-components";
+import Button from "../Button";
 
 const Container = styled.div`
   position: absolute;
@@ -16,17 +18,69 @@ const Container = styled.div`
   background-color: white;
 `;
 
+const Title = styled.h4`
+  font-weight: 800;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  &:first-child {
+    margin-top: 0;
+  }
+`;
+
 const Data = styled.span`
   color: ${props => props.theme.violetColor};
 `;
 
+const Passenger = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const Image = styled.img`
+  border-radius: 50%;
+  margin-right: 20px;
+`;
+
 interface IProps {
   pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  passengerName: string;
+  passengerPhoto: string;
+  acceptRideFn: MutationFn;
+  id: number;
 }
 
-const RidePopUp: React.FC<IProps> = ({ pickUpAddress }) => (
+const RidePopUp: React.FC<IProps> = ({
+  pickUpAddress,
+  dropOffAddress,
+  price,
+  distance,
+  passengerName,
+  passengerPhoto,
+  acceptRideFn,
+  id
+}) => (
   <Container>
+    <Title>Pick up Address</Title>
     <Data>{pickUpAddress}</Data>
+    <Title>Drop off Address</Title>
+    <Data>{dropOffAddress}</Data>
+    <Title>Price</Title>
+    <Data>{price}</Data>
+    <Title>Distance</Title>
+    <Data>{distance}</Data>
+    <Title>Passenger:</Title>
+    <Passenger>
+      <Image src={passengerPhoto} />
+      <Data>{passengerName}</Data>
+    </Passenger>
+    <Button
+      onClick={() => acceptRideFn({ variables: { rideId: id } })}
+      value="Accept Ride"
+    />
   </Container>
 );
 
