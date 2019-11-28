@@ -144,7 +144,6 @@ class HomeContainer extends React.Component<IProps, IState> {
                           return newObject;
                         }
                       };
-                      console.log(isDriving);
                       if (isDriving) {
                         subscribeToMore(rideSubscriptionOptions);
                       }

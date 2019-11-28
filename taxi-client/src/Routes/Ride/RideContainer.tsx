@@ -47,17 +47,22 @@ class RideContainer extends React.Component<IProps> {
               const subscribeOptions: SubscribeToMoreOptions = {
                 document: RIDE_STATUS_SUBSCRIPTION,
                 updateQuery: (prevState, { subscriptionData }) => {
-                  if (!subscriptionData) {
+                  if (!subscriptionData.data) {
                     return prevState;
+                  }
+                  const {
+                    data: {
+                      RideStatusSubscription: { status }
+                    }
+                  } = subscriptionData;
+                  if (status === "FINISHED") {
+                    window.location.href = "/";
                   }
                 }
               };
               subscribeToMore(subscribeOptions);
               return (
-                <RideUpdate
-                  mutation={UPDATE_RIDE_STATUS}
-                  refetchQueries={GET_RIDE}
-                >
+                <RideUpdate mutation={UPDATE_RIDE_STATUS}>
                   {updateRideFn => (
                     <RidePresenter
                       userData={userData}
