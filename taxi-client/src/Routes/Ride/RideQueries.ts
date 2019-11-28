@@ -6,6 +6,7 @@ export const GET_RIDE = gql`
       ok
       error
       ride {
+        id
         status
         pickUpAddress
         dropOffAddress
@@ -13,10 +14,12 @@ export const GET_RIDE = gql`
         distance
         duration
         driver {
+          id
           fullName
           profilePhoto
         }
         passenger {
+          id
           fullName
           profilePhoto
         }

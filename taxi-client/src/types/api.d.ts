@@ -291,18 +291,21 @@ export interface startPhoneVerificationVariables {
 
 export interface getRide_GetRide_ride_driver {
   __typename: "User";
+  id: number;
   fullName: string | null;
   profilePhoto: string | null;
 }
 
 export interface getRide_GetRide_ride_passenger {
   __typename: "User";
+  id: number;
   fullName: string | null;
   profilePhoto: string | null;
 }
 
 export interface getRide_GetRide_ride {
   __typename: "Ride";
+  id: number;
   status: string;
   pickUpAddress: string;
   dropOffAddress: string;
@@ -389,6 +392,7 @@ export interface verifyPhoneVariables {
 
 export interface userProfile_GetMyProfile_user {
   __typename: "User";
+  id: number;
   profilePhoto: string | null;
   firstName: string;
   lastName: string;
