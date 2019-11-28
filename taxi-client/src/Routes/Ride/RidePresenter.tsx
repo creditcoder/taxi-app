@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
 import Layout from "../../Components/Container";
@@ -42,11 +43,13 @@ interface IProps {
   data?: getRide;
   userData?: userProfile;
   loading: boolean;
+  updateRideFn: MutationFn;
 }
 
 const RidePresenter: React.FC<IProps> = ({
   data: { GetRide: { ride = null } = {} } = {},
-  userData: { GetMyProfile: { user = null } = {} } = {}
+  userData: { GetMyProfile: { user = null } = {} } = {},
+  updateRideFn
 }) => (
   <Layout textAlign={"center"}>
     {ride && user && (
@@ -81,17 +84,27 @@ const RidePresenter: React.FC<IProps> = ({
           {ride.driver.id === user.id && ride.status === "ACCEPTED" && (
             <ExtendedButton
               value={"Picked Up"}
-              onClick={() => {
-                return;
-              }}
+              onClick={() =>
+                updateRideFn({
+                  variables: {
+                    rideId: ride.id,
+                    status: "ONROUTE"
+                  }
+                })
+              }
             />
           )}
           {ride.driver.id === user.id && ride.status === "ONROUTE" && (
             <ExtendedButton
               value={"Finished"}
-              onClick={() => {
-                return;
-              }}
+              onClick={() =>
+                updateRideFn({
+                  variables: {
+                    rideId: ride.id,
+                    status: "FINISHED"
+                  }
+                })
+              }
             />
           )}
           {ride.driver.id === user.id ||
