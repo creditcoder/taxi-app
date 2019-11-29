@@ -5,6 +5,7 @@ import Header from "../../Components/Header";
 import Input from "../../Components/Input";
 import Message from "../../Components/Message";
 import styled from "../../typed-components";
+import { getChat, userProfile } from "../../types/api";
 
 const Chat = styled.div`
   height: 65vh;
@@ -20,25 +21,50 @@ const InputContainer = styled.div`
   padding: 0 20px;
 `;
 
-const ChatPresenter: React.FC = () => (
+interface IProps {
+  data?: getChat;
+  loading: boolean;
+  userData?: userProfile;
+}
+
+const ChatPresenter: React.FC<IProps> = ({
+  loading,
+  data: { GetChat: { chat = null } = {} } = {},
+  userData: { GetMyProfile: { user = null } = {} } = {}
+}) => (
   <Layout minHeight="80%">
     <Header title="Chat" />
-    <Chat>
-      <Message mine={true} text="Hello there" />
-      <Message mine={false} text="Hello there" />
-    </Chat>
-    <InputContainer>
-      <Form submitFn={null}>
-        <Input
-          width="70%"
-          onChange={() => {
-            return;
-          }}
-          value="Hello"
-          name="message"
-        />
-      </Form>
-    </InputContainer>
+    {!loading && chat && user && (
+      <>
+        <Chat>
+          {chat.messages &&
+            chat.messages.map(message => {
+              if (message) {
+                return (
+                  <Message
+                    key={message.id}
+                    mine={user.id === message.userId}
+                    text={message.text}
+                  />
+                );
+              }
+              return null;
+            })}
+        </Chat>
+        <InputContainer>
+          <Form submitFn={null}>
+            <Input
+              width="70%"
+              onChange={() => {
+                return;
+              }}
+              value="Hello"
+              name="message"
+            />
+          </Form>
+        </InputContainer>
+      </>
+    )}
   </Layout>
 );
 
