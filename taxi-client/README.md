@@ -5,9 +5,10 @@
 - [ ] not always displaying user photo after submitting edit profile and going back to home -> menu
 - [x] on uploading new profile photo, if you refresh page photo is again that was before updating
 - [ ] remove setting isriding to false in backend request ride
+- [ ] necessary: set isRiding = true to passenger after finishing a ride
 
 ### Possible updates:
 
 - [ ] loading component
-- [ ] sorting places alphabetically
+- [x] sorting places alphabetically
 - [ ] reset styles(margin etc)
