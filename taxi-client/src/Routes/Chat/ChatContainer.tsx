@@ -93,6 +93,9 @@ class ChatContainer extends React.Component<IProps, IState> {
           text: message
         }
       });
+      this.setState({
+        message: ""
+      });
     }
   };
 }
