@@ -53,6 +53,10 @@ const resolvers: Resolvers = {
             }
             if (ride) {
               ride.status = args.status;
+              if(ride.status === "FINISHED") {
+                ride.passenger.isRiding = false;
+                ride.passenger.save();
+              }
               ride.save();
               pubSub.publish("rideUpdate", { RideStatusSubscription: ride });
               return {
