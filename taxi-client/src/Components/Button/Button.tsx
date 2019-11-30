@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "../../typed-components";
 
-const Container = styled.input`
+const Container = styled.button`
   font-family: "Jura", sans-serif;
   min-width: 150px;
   background-color: ${props => props.theme.violetColor};
@@ -20,7 +20,8 @@ const Container = styled.input`
   &:disabled {
     cursor: auto;
     opacity: 0.8;
-    &:hover{}
+    &:hover {
+    }
   }
 `;
 
@@ -35,7 +36,8 @@ const Button: React.FC<IProps> = ({
   value,
   onClick,
   disabled = false,
-  className
+  className,
+  children
 }) => (
   <Container
     type={"submit"}
@@ -43,7 +45,9 @@ const Button: React.FC<IProps> = ({
     value={value}
     disabled={disabled}
     onClick={onClick}
-  />
+  >
+    {children}
+  </Container>
 );
 
 export default Button;

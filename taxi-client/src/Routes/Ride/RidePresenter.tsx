@@ -33,10 +33,38 @@ const Passenger = styled.div`
 
 const Buttons = styled.div`
   margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ExtendedButton = styled(Button)`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const ExtendedChatButton = styled(Button)`
+  position: relative;
+  margin-bottom: 15px;
+`;
+
+const NewMessageCount = styled.span`
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: ${props => props.theme.orangeColor};
+  border-radius: 50%;
+  font-size: 16px;
+  z-index: 11;
 `;
 
 interface IProps {
@@ -81,11 +109,18 @@ const RidePresenter: React.FC<IProps> = ({
         <Title>Status</Title>
         <Data>{ride.status}</Data>
         <Buttons>
+          {ride.status !== "REQUESTING" && (
+            <Link to={`/chat/${ride.chatId}`}>
+              <ExtendedChatButton onClick={null}>
+                Chat
+                <NewMessageCount>10</NewMessageCount>
+              </ExtendedChatButton>
+            </Link>
+          )}
           {ride.driver &&
             ride.driver.id === user.id &&
             ride.status === "ACCEPTED" && (
               <ExtendedButton
-                value={"Picked Up"}
                 onClick={() =>
                   updateRideFn({
                     variables: {
@@ -94,13 +129,14 @@ const RidePresenter: React.FC<IProps> = ({
                     }
                   })
                 }
-              />
+              >
+                Picked Up
+              </ExtendedButton>
             )}
           {ride.driver &&
             ride.driver.id === user.id &&
             ride.status === "ONROUTE" && (
               <ExtendedButton
-                value={"Finished"}
                 onClick={() =>
                   updateRideFn({
                     variables: {
@@ -109,13 +145,10 @@ const RidePresenter: React.FC<IProps> = ({
                     }
                   })
                 }
-              />
+              >
+                Finished
+              </ExtendedButton>
             )}
-          {ride.status !== "REQUESTING" && (
-            <Link to={`/chat/${ride.chatId}`}>
-              <ExtendedButton value={"Chat"} onClick={null} />
-            </Link>
-          )}
         </Buttons>
       </>
     )}
