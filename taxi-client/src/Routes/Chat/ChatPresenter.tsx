@@ -25,12 +25,18 @@ interface IProps {
   data?: getChat;
   loading: boolean;
   userData?: userProfile;
+  messageText: string;
+  onSubmit: () => void;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ChatPresenter: React.FC<IProps> = ({
   loading,
   data: { GetChat: { chat = null } = {} } = {},
-  userData: { GetMyProfile: { user = null } = {} } = {}
+  userData: { GetMyProfile: { user = null } = {} } = {},
+  messageText,
+  onSubmit,
+  onInputChange
 }) => (
   <Layout minHeight="80%">
     <Header title="Chat" />
@@ -52,13 +58,12 @@ const ChatPresenter: React.FC<IProps> = ({
             })}
         </Chat>
         <InputContainer>
-          <Form submitFn={null}>
+          <Form submitFn={onSubmit}>
             <Input
               width="70%"
-              onChange={() => {
-                return;
-              }}
-              value="Hello"
+              placeholder="Type your message"
+              onChange={onInputChange}
+              value={messageText}
               name="message"
             />
           </Form>
