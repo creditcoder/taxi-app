@@ -1,3 +1,4 @@
+import { SubscribeToMoreOptions } from "apollo-boost";
 import React from "react";
 import { Mutation, MutationFn, Query } from "react-apollo";
 import { RouteComponentProps } from "react-router";
@@ -10,7 +11,7 @@ import {
   userProfile
 } from "../../types/api";
 import ChatPresenter from "./ChatPresenter";
-import { GET_CHAT, SEND_MESSAGE } from "./ChatQueries";
+import { GET_CHAT, SEND_MESSAGE, SUBSCRIBE_TO_MESSAGES } from "./ChatQueries";
 
 class ProfileQuery extends Query<userProfile> {}
 
@@ -47,23 +48,61 @@ class ChatContainer extends React.Component<IProps, IState> {
       <ProfileQuery query={USER_PROFILE}>
         {({ data: userData }) => (
           <ChatQuery query={GET_CHAT} variables={{ chatId: Number(chatId) }}>
-            {({ data, loading }) => (
-              <SendMessageMutation mutation={SEND_MESSAGE}>
-                {sendMessageFn => {
-                  this.sendMessageFn = sendMessageFn;
-                  return (
-                    <ChatPresenter
-                      userData={userData}
-                      data={data}
-                      loading={loading}
-                      onInputChange={this.onInputChange}
-                      messageText={message}
-                      onSubmit={this.onSubmit}
-                    />
-                  );
-                }}
-              </SendMessageMutation>
-            )}
+            {({ data, loading, subscribeToMore }) => {
+              const subscribeToMoreOptions: SubscribeToMoreOptions = {
+                document: SUBSCRIBE_TO_MESSAGES,
+                updateQuery: (prevState, { subscriptionData }) => {
+                  if (!subscriptionData) {
+                    return prevState;
+                  }
+                  const {
+                    data: { MessageSubscription }
+                  } = subscriptionData;
+                  const {
+                    GetChat: {
+                      chat: { messages }
+                    }
+                  } = prevState;
+                  const newMessageId = MessageSubscription.id;
+                  const latestMessageId = messages[messages.length - 1].id;
+
+                  if (newMessageId === latestMessageId) {
+                    return;
+                  }
+                  const newObject = Object.assign({}, prevState, {
+                    GetChat: {
+                      ...prevState.GetChat,
+                      chat: {
+                        ...prevState.GetChat.chat,
+                        messages: [
+                          ...prevState.GetChat.chat.messages,
+                          MessageSubscription
+                        ]
+                      }
+                    }
+                  });
+                  return newObject;
+                }
+              };
+              subscribeToMore(subscribeToMoreOptions);
+              return (
+                <SendMessageMutation mutation={SEND_MESSAGE}>
+                  {sendMessageFn => {
+                    this.sendMessageFn = sendMessageFn;
+                    return (
+                      <ChatPresenter
+                        userData={userData}
+                        data={data}
+                        loading={loading}
+                        onInputChange={this.onInputChange}
+                        messageText={message}
+                        onSubmit={this.onSubmit}
+                      />
+                    );
+                  }}
+                </SendMessageMutation>
+              );
+            }}
           </ChatQuery>
         )}
       </ProfileQuery>
@@ -87,14 +126,14 @@ class ChatContainer extends React.Component<IProps, IState> {
       }
     } = this.props;
     if (message !== "") {
+      this.setState({
+        message: ""
+      });
       this.sendMessageFn({
         variables: {
           chatId: Number(chatId),
           text: message
         }
-      });
-      this.setState({
-        message: ""
       });
     }
   };

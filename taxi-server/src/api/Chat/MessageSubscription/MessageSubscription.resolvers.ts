@@ -6,7 +6,7 @@ const resolvers = {
   Subscription: {
     MessageSubscription: {
       subscribe: withFilter(
-        (_, __, { pubSub }) => pubSub.asyncIterator("rideRequest"),
+        (_, __, { pubSub }) => pubSub.asyncIterator("newChatMessage"),
         async (payload, _, { context }) => {
           const user: User = context.currentUser;
           const {
