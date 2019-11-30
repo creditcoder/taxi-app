@@ -84,6 +84,7 @@ export interface getChat_GetChat_chat {
   __typename: "Chat";
   passengerId: number;
   driverId: number | null;
+  rideId: number | null;
   messages: (getChat_GetChat_chat_messages | null)[] | null;
 }
 

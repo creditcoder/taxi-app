@@ -39,7 +39,12 @@ const ChatPresenter: React.FC<IProps> = ({
   onInputChange
 }) => (
   <Layout minHeight="80%">
-    <Header title="Chat" />
+    {chat ? (
+      <Header title="Chat" backTo={`/ride/${chat.rideId}`} />
+    ) : (
+      <Header title="Chat" />
+    )}
+
     {!loading && chat && user && (
       <>
         <Chat>

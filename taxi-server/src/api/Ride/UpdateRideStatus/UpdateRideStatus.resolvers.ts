@@ -34,11 +34,13 @@ const resolvers: Resolvers = {
                 user.save();
                 const chat = await Chat.create({
                   driver: user,
-                  passenger: ride.passenger
+                  passenger: ride.passenger,
+                  rideId: ride.id
                 }).save();
                 ride.chat = chat;
                 ride.chatId = chat.id;
                 ride.save();
+                console.log(ride.chat);
               }
             } else {
               ride = await Ride.findOne(

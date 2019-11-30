@@ -8,6 +8,7 @@ export const GET_CHAT = gql`
       chat {
         passengerId
         driverId
+        rideId
         messages {
           id
           text

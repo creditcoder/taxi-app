@@ -64,11 +64,14 @@ class ChatContainer extends React.Component<IProps, IState> {
                     }
                   } = prevState;
                   const newMessageId = MessageSubscription.id;
-                  const latestMessageId = messages[messages.length - 1].id;
-
-                  if (newMessageId === latestMessageId) {
-                    return;
+                  const latestMessage = messages[messages.length - 1];
+                  if (messages.length > 0) {
+                    const latestMessageId = latestMessage.id;
+                    if (newMessageId === latestMessageId) {
+                      return;
+                    }
                   }
+
                   const newObject = Object.assign({}, prevState, {
                     GetChat: {
                       ...prevState.GetChat,
