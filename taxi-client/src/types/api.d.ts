@@ -343,6 +343,7 @@ export interface getRide_GetRide_ride_passenger {
 export interface getRide_GetRide_ride {
   __typename: "Ride";
   id: number;
+  chatId: number | null;
   status: string;
   pickUpAddress: string;
   dropOffAddress: string;
@@ -351,7 +352,6 @@ export interface getRide_GetRide_ride {
   duration: string;
   driver: getRide_GetRide_ride_driver | null;
   passenger: getRide_GetRide_ride_passenger;
-  chatId: number | null;
 }
 
 export interface getRide_GetRide {

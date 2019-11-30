@@ -52,12 +52,13 @@ class RideContainer extends React.Component<IProps> {
                   }
                   const {
                     data: {
-                      RideStatusSubscription: { status }
+                      RideStatusSubscription: { status, chatId }
                     }
                   } = subscriptionData;
                   if (status === "FINISHED") {
                     window.location.href = "/";
                   }
+                  return chatId;
                 }
               };
               subscribeToMore(subscribeOptions);

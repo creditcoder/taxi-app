@@ -7,6 +7,7 @@ export const GET_RIDE = gql`
       error
       ride {
         id
+        chatId
         status
         pickUpAddress
         dropOffAddress
@@ -23,7 +24,6 @@ export const GET_RIDE = gql`
           fullName
           profilePhoto
         }
-        chatId
       }
     }
   }
