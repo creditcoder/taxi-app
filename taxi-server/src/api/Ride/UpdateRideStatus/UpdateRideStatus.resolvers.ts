@@ -37,6 +37,7 @@ const resolvers: Resolvers = {
                   passenger: ride.passenger
                 }).save();
                 ride.chat = chat;
+                ride.chatId = chat.id;
                 ride.save();
               }
             } else {
