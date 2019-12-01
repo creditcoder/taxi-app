@@ -2,7 +2,7 @@ import React from "react";
 import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
-import Button from "../../Components/Button";
+import { BlueButton, VioletButton } from "../../Components/Button";
 import Layout from "../../Components/Container";
 import Header from "../../Components/Header";
 import Place from "../../Components/Place";
@@ -32,28 +32,9 @@ const Key = styled.span`
 `;
 
 const FlexLink = styled(Link)`
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
-`;
-
-const ExtendedButton = styled(Button)`
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 25px ${props => props.theme.blueColor};
-  background-color: ${props => props.theme.blueColor};
-  transition: 0.3s;
-  &:hover {
-    margin: 5px 0 15px 0;
-  }
-`;
-
-const ExtendedButtonLogOut = styled(ExtendedButton)`
-  box-shadow: 0 2px 25px ${props => props.theme.pinkColor};
-  background-color: ${props => props.theme.pinkColor};
-  margin: 10px 0 30px 0;
-  &:hover {
-    margin: 5px 0 35px 0;
-  }
 `;
 
 interface IProps {
@@ -102,10 +83,10 @@ const SettingsPresenter: React.FC<IProps> = ({
             />
           ))}
       <FlexLink to={"/places"}>
-        <ExtendedButton value={"Go to Places"} onClick={null} />
+        <BlueButton onClick={null}>Go to Places</BlueButton>
       </FlexLink>
       <FlexLink>
-        <ExtendedButtonLogOut value={"Log Out"} onClick={logUserOut} />
+        <VioletButton onClick={logUserOut}>Log Out</VioletButton>
       </FlexLink>
     </Layout>
   </>

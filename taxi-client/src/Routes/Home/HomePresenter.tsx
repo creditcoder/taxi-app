@@ -3,7 +3,7 @@ import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import Sidebar from "react-sidebar";
 import AddressBar from "../../Components/AddressBar";
-import Button from "../../Components/Button";
+import { VioletButton } from "../../Components/Button";
 import { Layout } from "../../Components/Container";
 import Menu from "../../Components/Menu";
 import RidePopUp from "../../Components/RidePopUp";
@@ -26,16 +26,14 @@ const MenuButton = styled.button`
   background-color: transparent;
 `;
 
-const ExtendedButton = styled(Button)`
+const ExtendedButton = styled(VioletButton)`
   position: absolute;
   bottom: 50px;
   left: 0;
   right: 0;
   margin: auto;
-  z-index: 10;
-  height: auto;
-  max-width: 400px;
-  width: 80%;
+  width: 200px;
+  z-index: 9;
 `;
 
 const RequestButton = styled(ExtendedButton)`
@@ -105,19 +103,16 @@ const HomePresenter: React.FC<IProps> = ({
             value={toAddress}
             onBlur={() => ""}
           />
-          <ExtendedButton
-            onClick={onAddressSubmit}
-            disabled={toAddress === ""}
-            value={price ? "Change address" : "Pick Address"}
-          />
+          <ExtendedButton onClick={onAddressSubmit} disabled={toAddress === ""}>
+            {price ? "Change address" : "Pick Address"}
+          </ExtendedButton>
         </>
       )}
       {price && (
         <RequestButton
           onClick={requestRideFn}
           disabled={toAddress === ""}
-          value={`Request ride ($${price})`}
-        />
+        >{`Request ride ($${price})`}</RequestButton>
       )}
       {ride && (
         <RidePopUp

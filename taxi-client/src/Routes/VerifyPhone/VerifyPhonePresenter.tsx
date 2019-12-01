@@ -1,7 +1,7 @@
 import React from "react";
 import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
-import Button from "../../Components/Button";
+import { VioletButton } from "../../Components/Button";
 import Container from "../../Components/Container";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
@@ -14,23 +14,23 @@ const ExtendedForm = styled(Form)`
 
 const ExtendedInput = styled(Input)``;
 
-const ExtendedButton = styled(Button)`
+const ExtendedButton = styled(VioletButton)`
   margin-top: 30px;
-  border-radius: 10px;
-  transition: 0.2s;
-  &:hover {
-    margin-top: 25px;
-  }
 `;
 
 interface IProps {
   verificationKey: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: MutationFn,
-  loading: boolean
+  onSubmit: MutationFn;
+  loading: boolean;
 }
 
-const VerifyPhonePresenter: React.FC<IProps> = ({ verificationKey, onChange, onSubmit, loading }) => (
+const VerifyPhonePresenter: React.FC<IProps> = ({
+  verificationKey,
+  onChange,
+  onSubmit,
+  loading
+}) => (
   <Container minHeight={"250px"} textAlign={"center"}>
     <Helmet>
       <title>Verify Phone | Taxi</title>
@@ -43,7 +43,9 @@ const VerifyPhonePresenter: React.FC<IProps> = ({ verificationKey, onChange, onS
         name={"verificationKey"}
         onChange={onChange}
       />
-      <ExtendedButton disabled={loading} value={loading? "Verifying" : "Submit"} onClick={null} />
+      <ExtendedButton disabled={loading} onClick={null}>
+        {loading ? "Verifying" : "Submit"}
+      </ExtendedButton>
     </ExtendedForm>
   </Container>
 );

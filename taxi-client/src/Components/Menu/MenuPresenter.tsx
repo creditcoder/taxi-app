@@ -3,8 +3,9 @@ import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import { rotate } from "../../animations";
 import defaultProfilePhoto from "../../images/defaultProfilePhoto.png";
-import styled, { css } from "../../typed-components";
+import styled from "../../typed-components";
 import { userProfile } from "../../types/api";
+import { BlueButton, YellowButton } from "../Button";
 
 const Container = styled.div`
   height: 100%;
@@ -65,35 +66,6 @@ const Grid = styled.div`
   align-items: center;
 `;
 
-interface IToggleProps {
-  isDriving: boolean;
-}
-
-const ToggleDriving = styled<IToggleProps, any>("button")`
-  -webkit-appearance: none;
-  background-color: ${props =>
-    props.isDriving ? props.theme.orangeColor : props.theme.blueColor};
-  width: 80%;
-  margin-top: 10px;
-  margin-left: 10%;
-  padding: 15px 0;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  font-family: "Jura", sans-serif;
-  box-shadow: ${props =>
-    props.isDriving
-      ? css`0 2px 25px ${props.theme.orangeColor}`
-      : css`0 2px 25px ${props.theme.blueColor}`};
-  transition: 0.3s;
-  &:hover {
-    background-color: ${props => props.theme.violetColor};
-    box-shadow: 0 2px 25px ${props => props.theme.violetColor};
-  }
-`;
-
 const LoadingIcon = styled.span`
   width: 100%;
   height: 100%;
@@ -104,6 +76,15 @@ const LoadingIcon = styled.span`
     animation: ${rotate} 2s linear infinite;
   }
 `;
+
+const CenteredYellowButton = styled(YellowButton)`
+  margin-left: calc(50% - 75px);
+`;
+
+const CenteredBlueButton = styled(BlueButton)`
+  margin-left: calc(50% - 75px);
+`;
+
 
 interface IProps {
   data?: userProfile;
@@ -144,9 +125,11 @@ const MenuPresenter: React.FC<IProps> = ({
         </Header>
         <SLink to={"/trips"}>My Trips</SLink>
         <SLink to={"/settings"}>Settings</SLink>
-        <ToggleDriving onClick={toggleDriving} isDriving={user.isDriving}>
-          {user.isDriving ? "Stop driving" : "Start driving"}
-        </ToggleDriving>
+        {user.isDriving ? (
+          <CenteredYellowButton onClick={toggleDriving}>Stop driving</CenteredYellowButton>
+        ) : (
+          <CenteredBlueButton onClick={toggleDriving}>Start driving</CenteredBlueButton>
+        )}
       </>
     )}
   </Container>

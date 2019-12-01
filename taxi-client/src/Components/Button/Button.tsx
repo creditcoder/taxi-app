@@ -3,6 +3,7 @@ import styled from "../../typed-components";
 
 const Container = styled.button`
   font-family: "Jura", sans-serif;
+  border-radius: 20px;
   min-width: 150px;
   background-color: ${props => props.theme.violetColor};
   color: white;
@@ -26,14 +27,12 @@ const Container = styled.button`
 `;
 
 interface IProps {
-  value: string;
   onClick: any;
   disabled?: boolean;
   className?: string;
 }
 
 const Button: React.FC<IProps> = ({
-  value,
   onClick,
   disabled = false,
   className,
@@ -42,7 +41,6 @@ const Button: React.FC<IProps> = ({
   <Container
     type={"submit"}
     className={className}
-    value={value}
     disabled={disabled}
     onClick={onClick}
   >

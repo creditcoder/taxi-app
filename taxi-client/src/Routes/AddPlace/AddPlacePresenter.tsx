@@ -2,7 +2,7 @@ import React from "react";
 import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
-import Button from "../../Components/Button";
+import { BlueButton, VioletButton } from "../../Components/Button";
 import Layout from "../../Components/Container";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
@@ -22,30 +22,9 @@ const ExtendedLink = styled(Link)`
   text-align: center;
 `;
 
-const FindButton = styled(Button)`
-  border-radius: 20px;
-  box-shadow: 0 2px 25px ${props => props.theme.pinkColor};
-  background: ${props =>
-    css`linear-gradient(${props.theme.pinkColor}, #b918cc)`};
-  &:hover {
-    box-shadow: 0 2px 25px ${props => props.theme.orangeColor};
-    background: ${props =>
-      css`linear-gradient(${props.theme.yellowColor}, ${props.theme.orangeColor})`};
-  }
-`;
-
-const AddButton = styled(Button)`
+const AddButton = styled(BlueButton)`
   display: block;
   margin: 0 auto 30px auto;
-  border-radius: 20px;
-  box-shadow: 0 2px 25px ${props => props.theme.blueColor};
-  background: ${props =>
-    css`linear-gradient(${props.theme.blueColor}, ${props.theme.darkBlueColor})`};
-  &:hover {
-    box-shadow: 0 2px 25px ${props => props.theme.orangeColor};
-    background: ${props =>
-      css`linear-gradient(${props.theme.yellowColor}, ${props.theme.orangeColor})`};
-  }
   &:disabled {
     &:hover {
       box-shadow: 0 2px 25px ${props => props.theme.blueColor};
@@ -96,13 +75,11 @@ const AddPlacePresenter: React.FC<IProps> = ({
           onChange={onInputChange}
         />
         <ExtendedLink to={"/find-address"}>
-          <FindButton onClick={null} value={"Pick from Map"} />
+          <VioletButton onClick={null}>Pick from Map</VioletButton>
         </ExtendedLink>
-        <AddButton
-          disabled={!pickedAddress}
-          onClick={null}
-          value={loading ? "Adding" : "Add Place"}
-        />
+        <AddButton disabled={!pickedAddress} onClick={null}>
+          {loading ? "Adding" : "Add Place"}
+        </AddButton>
       </ExtendedForm>
     </Layout>
   </>

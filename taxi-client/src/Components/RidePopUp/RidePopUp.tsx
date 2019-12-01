@@ -1,7 +1,7 @@
 import React from "react";
 import { MutationFn } from "react-apollo";
 import styled from "../../typed-components";
-import Button from "../Button";
+import { VioletButton } from "../Button";
 
 const Container = styled.div`
   text-align: center;
@@ -48,7 +48,7 @@ const Image = styled.img`
   margin-right: 20px;
 `;
 
-const CenteredButton = styled(Button)`
+const CenteredButton = styled(VioletButton)`
   display: block;
   margin: 0 auto;
 `;
@@ -88,10 +88,9 @@ const RidePopUp: React.FC<IProps> = ({
       <Image src={passengerPhoto} />
       <Data>{passengerName}</Data>
     </Passenger>
-    <CenteredButton
-      onClick={() => acceptRideFn({ variables: { rideId: id } })}
-      value="Accept Ride"
-    />
+    <CenteredButton onClick={() => acceptRideFn({ variables: { rideId: id } })}>
+      Accept Ride
+    </CenteredButton>
   </Container>
 );
 

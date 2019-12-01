@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import AddressBar from "../../Components/AddressBar";
-import Button from "../../Components/Button";
+import { VioletButton } from "../../Components/Button";
 import styled from "../../typed-components";
 
 const Map = styled.div`
@@ -27,7 +27,7 @@ const Centered = styled.div`
 
 const Icon = styled.span``;
 
-const ExtendedButton = styled(Button)`
+const ExtendedVioletButton = styled(VioletButton)`
   position: absolute;
   bottom: 50px;
   left: 0;
@@ -36,7 +36,7 @@ const ExtendedButton = styled(Button)`
   z-index: 10;
   height: auto;
   max-width: 400px;
-  width: 80%;
+  width: 200px;
 `;
 
 interface IProps {
@@ -67,7 +67,7 @@ class FindAddressPresenter extends React.Component<IProps> {
           name={"address"}
           value={address}
         />
-        <ExtendedButton value={"Pick this place"} onClick={onPickPlace} />
+        <ExtendedVioletButton onClick={onPickPlace}>Pick this place</ExtendedVioletButton>
         <Centered>
           <Icon>
             <svg

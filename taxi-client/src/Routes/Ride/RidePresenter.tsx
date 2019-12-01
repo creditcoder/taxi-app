@@ -3,7 +3,7 @@ import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
 import Layout from "../../Components/Container";
-import styled from "../../typed-components";
+import styled, { css } from "../../typed-components";
 import { getRide, userProfile } from "../../types/api";
 
 const Title = styled.h4`
@@ -44,11 +44,29 @@ const ExtendedButton = styled(Button)`
   &:last-child {
     margin-bottom: 0;
   }
+  border-radius: 20px;
+  box-shadow: 0 2px 25px ${props => props.theme.blueColor};
+  background: ${props =>
+    css`linear-gradient(${props.theme.blueColor}, ${props.theme.darkBlueColor})`};
+  &:hover {
+    box-shadow: 0 2px 25px ${props => props.theme.orangeColor};
+    background: ${props =>
+      css`linear-gradient(${props.theme.yellowColor}, ${props.theme.orangeColor})`};
+  }
 `;
 
 const ExtendedChatButton = styled(Button)`
   position: relative;
   margin-bottom: 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 25px ${props => props.theme.pinkColor};
+  background: ${props =>
+    css`linear-gradient(${props.theme.pinkColor}, #b918cc)`};
+  &:hover {
+    box-shadow: 0 2px 25px ${props => props.theme.orangeColor};
+    background: ${props =>
+      css`linear-gradient(${props.theme.yellowColor}, ${props.theme.orangeColor})`};
+  }
 `;
 
 const NewMessageCount = styled.span`
@@ -64,6 +82,7 @@ const NewMessageCount = styled.span`
   background: ${props => props.theme.orangeColor};
   border-radius: 50%;
   font-size: 16px;
+  box-shadow: 0 2px 10px ${props => props.theme.orangeColor};
   z-index: 11;
 `;
 

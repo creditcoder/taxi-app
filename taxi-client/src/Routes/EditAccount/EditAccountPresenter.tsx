@@ -1,7 +1,7 @@
 import React from "react";
 import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
-import Button from "../../Components/Button";
+import { BlueButton } from "../../Components/Button";
 import Layout from "../../Components/Container";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
@@ -17,17 +17,6 @@ const ExtendedForm = styled(Form)`
   justify-content: space-between;
   padding: 0 40px;
   margin-bottom: 30px;
-`;
-
-const ExtendedButton = styled(Button)`
-  border-radius: 10px;
-  background-color: ${props => props.theme.blueColor};
-  box-shadow: 0 2px 25px ${props => props.theme.blueColor};
-  transition: 0.3s;
-  &:hover {
-    background-color: ${props => props.theme.violetColor};
-    box-shadow: 0 2px 25px ${props => props.theme.violetColor};
-  }
 `;
 
 interface IProps {
@@ -86,7 +75,7 @@ const EditAccountPresenter: React.FC<IProps> = ({
         placeholder={"Email"}
         name="email"
       />
-      <ExtendedButton onClick={null} value={loading ? "Loading" : "Update"} />
+      <BlueButton onClick={null}>{loading ? "Loading" : "Update"}</BlueButton>
     </ExtendedForm>
   </Layout>
 );
