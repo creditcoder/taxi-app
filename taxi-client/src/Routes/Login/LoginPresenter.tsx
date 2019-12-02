@@ -2,6 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { fadeIn } from "../../animations";
+import { BlueButton, VioletButton } from "../../Components/Button";
 import { Layout } from "../../Components/Container";
 import styled from "../../typed-components";
 
@@ -41,49 +42,25 @@ const Footer = styled.div`
   border-radius: 10px;
   background-color: white;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled.h2`
+  margin: 20px 0;
   font-size: 25px;
   color: ${props => props.theme.violetColor};
 `;
 
-const FakeInput = styled.div`
-  margin: 30px 0 15px 0;
-  font-size: 20px;
-  font-weight: 300;
+const BlueButtonExtended = styled(BlueButton)`
+  width: 240px;
+  margin: 20px 0;
 `;
 
-const PhoneLogin = styled.div`
-  padding: 20px;
-`;
-
-const Grey = styled.span`
-  color: ${props => props.theme.greyColor};
-  margin-left: 10px;
-`;
-
-const SocialLogin = styled.button`
-  cursor: pointer;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  transition: 0.2s;
-  &:hover {
-    margin-top: 0;
-    margin-bottom: 25px;
-  }
-  box-shadow: 0 5px 10px ${props => props.theme.violetColor};
-  border: 2px solid ${props => props.theme.violetColor};
-  border-radius: 20px;
-  padding: 15px 10px;
-  background-color: transparent;
-`;
-
-const SocialLink = styled.span`
-  font-family: "Jura", sans-serif;
-  color: ${props => props.theme.violetColor};
-  font-weight: 600;
-  font-size: 16px;
+const VioletButtonExtended = styled(VioletButton)`
+  width: 240px;
 `;
 
 // tslint:disable-next-line:no-empty-interface
@@ -100,18 +77,16 @@ const LoginPresenter: React.FC<RouteComponentProps<IProps>> = () => (
       </Logo>
     </Header>
     <Footer>
+      <Subtitle>Start moving with Taxi</Subtitle>
       <Link to={"/phone-login"}>
-        <PhoneLogin>
-          <Subtitle>Start moving with Taxi</Subtitle>
-          <FakeInput>
-            +38 <Grey>Enter your mobile phone</Grey>
-          </FakeInput>
-        </PhoneLogin>
+        <VioletButtonExtended onClick={null}>
+          Log in with phone
+        </VioletButtonExtended>
       </Link>
       <Link to={"/social-login"}>
-        <SocialLogin>
-          <SocialLink>Or connect with social</SocialLink>
-        </SocialLogin>
+        <BlueButtonExtended onClick={null}>
+          Or connect with social
+        </BlueButtonExtended>
       </Link>
     </Footer>
   </Layout>

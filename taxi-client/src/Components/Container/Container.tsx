@@ -23,6 +23,7 @@ const VisibleContainer = styled.div`
   animation: ${fadeIn} 1s ease-in-out;
   position: relative;
   width: 100%;
+  max-width: ${props => props.maxWidth};
   min-height: ${props => (props.minHeight ? props.minHeight : "none")};
   background-color: white;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
@@ -36,13 +37,15 @@ interface IProps {
   padding?: string;
   minHeight?: string;
   textAlign?: string;
+  maxWidth?: string;
 }
 
 const Container: React.FC<IProps> = ({
   padding = "0",
   minHeight = "none",
   textAlign,
-  children
+  children,
+  maxWidth
 }) => {
   return (
     <MainContainer>
@@ -51,6 +54,7 @@ const Container: React.FC<IProps> = ({
           textAlign={textAlign}
           minHeight={minHeight}
           padding={padding}
+          maxWidth={maxWidth}
         >
           {children}
         </VisibleContainer>

@@ -23,7 +23,7 @@ const Title = styled.h2`
 const Subtitle = styled.label`
   color: ${props => props.theme.violetColor};
   font-size: 16px;
-  margin-right: 5px;
+  margin-right: 15px;
 `;
 
 const Form = styled.form`
@@ -51,12 +51,15 @@ const Button = styled.a`
   justify-content: center;
   position: absolute;
   bottom: 20px;
-  right: 30px;
+  right: 20px;
   cursor: pointer;
-  margin: 5px 0 10px 0;
-  transition: ${props => (props.loading ? "0" : "0.2s")};
+  transition: ${props => (props.loading ? "0" : "0.4s")};
   &:hover {
-    margin: 0 0 15px 0;
+    box-shadow: ${props =>
+      props.loading
+        ? "none"
+        : // tslint:disable-next-line:no-shadowed-variable
+          css`0 5px 15px ${props => props.theme.violetColor}`};
   }
 `;
 
@@ -101,7 +104,12 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
   onSubmit,
   loading
 }) => (
-  <Layout minHeight={"330px"} textAlign={"center"} padding={"50px 20px"}>
+  <Layout
+    maxWidth="640px"
+    minHeight="330px"
+    textAlign="center"
+    padding="50px 20px"
+  >
     <Helmet>
       <title>Phone Login | Taxi</title>
     </Helmet>
@@ -115,7 +123,7 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
     >
       {countries.map((country, index) => (
         <CountryOption key={index} value={country.dial_code}>
-          {country.flag} {country.name} ({country.dial_code})
+          {country.name} ({country.dial_code})
         </CountryOption>
       ))}
     </CountrySelect>

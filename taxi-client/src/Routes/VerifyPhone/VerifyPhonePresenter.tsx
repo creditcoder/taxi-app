@@ -9,6 +9,7 @@ import Input from "../../Components/Input";
 import styled from "../../typed-components";
 
 const ExtendedForm = styled(Form)`
+  margin-top: 40px;
   padding: 0 40px;
 `;
 
@@ -31,7 +32,7 @@ const VerifyPhonePresenter: React.FC<IProps> = ({
   onSubmit,
   loading
 }) => (
-  <Container minHeight={"250px"} textAlign={"center"}>
+  <Container maxWidth="428px" minHeight="250px" textAlign="center">
     <Helmet>
       <title>Verify Phone | Taxi</title>
     </Helmet>
