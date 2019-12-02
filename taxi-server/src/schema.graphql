@@ -7,6 +7,7 @@ type GetChatResponse {
 type Query {
   GetChat(chatId: Int!): GetChatResponse!
   GetMyPlaces: GetMyPlacesResponse!
+  GetMyRides: GetMyRidesResponse!
   GetNearbyRide: GetNearbyRideResponse!
   GetRide(rideId: Int!): GetRideResponse!
   GetMyProfile: GetMyProfileResponse!
@@ -101,6 +102,13 @@ type Place {
   user: User!
   createdAt: String!
   updatedAt: String
+}
+
+type GetMyRidesResponse {
+  ok: Boolean!
+  error: String
+  ridesAsDriver: [Ride]
+  ridesAsPassenger: [Ride]
 }
 
 type GetNearbyRideResponse {
