@@ -12,6 +12,7 @@ import Places from "../../Routes/Places";
 import Ride from "../../Routes/Ride";
 import Settings from "../../Routes/Settings";
 import SocialLogin from "../../Routes/SocialLogin";
+import Trips from "../../Routes/Trips";
 import VerifyPhoneNumber from "../../Routes/VerifyPhone";
 
 interface IProps {
@@ -42,6 +43,7 @@ const LoggedInRoutes: React.FC = () => (
     <Route path={"/edit-account"} exact={true} component={EditAccount} />
     <Route path={"/settings"} exact={true} component={Settings} />
     <Route path={"/places"} exact={true} component={Places} />
+    <Route path={"/trips"} exact={true} component={Trips} />
     <Route path={"/add-place"} exact={true} component={AddPlace} />
     <Route path={"/find-address"} exact={true} component={FindAddress} />
     <Redirect from={"*"} to={"/"} />
