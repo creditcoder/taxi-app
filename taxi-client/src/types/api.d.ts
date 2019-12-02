@@ -515,6 +515,60 @@ export interface facebookConnectVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: getMyRides
+// ====================================================
+
+export interface getMyRides_GetMyRides_ridesAsDriver_passenger {
+  __typename: "User";
+  fullName: string | null;
+}
+
+export interface getMyRides_GetMyRides_ridesAsDriver {
+  __typename: "Ride";
+  id: number;
+  status: string;
+  pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  chatId: number | null;
+  passenger: getMyRides_GetMyRides_ridesAsDriver_passenger;
+}
+
+export interface getMyRides_GetMyRides_ridesAsPassenger_driver {
+  __typename: "User";
+  fullName: string | null;
+}
+
+export interface getMyRides_GetMyRides_ridesAsPassenger {
+  __typename: "Ride";
+  id: number;
+  status: string;
+  pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  chatId: number | null;
+  driver: getMyRides_GetMyRides_ridesAsPassenger_driver | null;
+}
+
+export interface getMyRides_GetMyRides {
+  __typename: "GetMyRidesResponse";
+  ok: boolean;
+  error: string | null;
+  ridesAsDriver: (getMyRides_GetMyRides_ridesAsDriver | null)[] | null;
+  ridesAsPassenger: (getMyRides_GetMyRides_ridesAsPassenger | null)[] | null;
+}
+
+export interface getMyRides {
+  GetMyRides: getMyRides_GetMyRides;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: verifyPhone
 // ====================================================
 
