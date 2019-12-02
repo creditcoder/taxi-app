@@ -6,6 +6,7 @@ import styled from "../../typed-components";
 import { getMyRides } from "../../types/api";
 
 const Ride = styled.div`
+  padding: 5px;
   margin: 20px auto;
   width: 90%;
   display: flex;
@@ -49,7 +50,7 @@ const TripsPresenter: React.FC<IProps> = ({
   } = {},
   loading
 }) => (
-  <Layout maxHeight="500px">
+  <Layout maxHeight="800px">
     <Helmet>
       <title>My Trips | Taxi</title>
     </Helmet>
@@ -57,8 +58,8 @@ const TripsPresenter: React.FC<IProps> = ({
     {!loading &&
       ridesAsPassenger &&
       ridesAsPassenger.length > 0 &&
-      ridesAsPassenger.map(ride => {
-        const date = new Date(ride!.updatedAt!);
+      ridesAsPassenger.reverse().map(ride => {
+        const date = new Date(Number(ride!.updatedAt!));
         const formattedDate = `${date.getDate()}-${date.getMonth() +
           1}-${date.getFullYear()}`;
         return (
@@ -80,9 +81,8 @@ const TripsPresenter: React.FC<IProps> = ({
     {!loading &&
       ridesAsDriver &&
       ridesAsDriver.length > 0 &&
-      ridesAsDriver.map(ride => {
-        const date = new Date(ride!.updatedAt!);
-        console.log(date)
+      ridesAsDriver.reverse().map(ride => {
+        const date = new Date(Number(ride!.updatedAt!));
         const formattedDate = `${date.getDate()}-${date.getMonth() +
           1}-${date.getFullYear()}`;
         return (
