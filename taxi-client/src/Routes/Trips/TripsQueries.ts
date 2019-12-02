@@ -13,8 +13,10 @@ export const GET_MY_RIDES = gql`
         price
         distance
         chatId
+        updatedAt
         passenger {
           fullName
+          profilePhoto
         }
       }
       ridesAsPassenger {
@@ -25,8 +27,10 @@ export const GET_MY_RIDES = gql`
         price
         distance
         chatId
+        updatedAt
         driver {
           fullName
+          profilePhoto
         }
       }
     }

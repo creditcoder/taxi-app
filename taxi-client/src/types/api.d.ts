@@ -521,6 +521,7 @@ export interface facebookConnectVariables {
 export interface getMyRides_GetMyRides_ridesAsDriver_passenger {
   __typename: "User";
   fullName: string | null;
+  profilePhoto: string | null;
 }
 
 export interface getMyRides_GetMyRides_ridesAsDriver {
@@ -532,12 +533,14 @@ export interface getMyRides_GetMyRides_ridesAsDriver {
   price: number;
   distance: string;
   chatId: number | null;
+  updatedAt: string | null;
   passenger: getMyRides_GetMyRides_ridesAsDriver_passenger;
 }
 
 export interface getMyRides_GetMyRides_ridesAsPassenger_driver {
   __typename: "User";
   fullName: string | null;
+  profilePhoto: string | null;
 }
 
 export interface getMyRides_GetMyRides_ridesAsPassenger {
@@ -549,6 +552,7 @@ export interface getMyRides_GetMyRides_ridesAsPassenger {
   price: number;
   distance: string;
   chatId: number | null;
+  updatedAt: string | null;
   driver: getMyRides_GetMyRides_ridesAsPassenger_driver | null;
 }
 

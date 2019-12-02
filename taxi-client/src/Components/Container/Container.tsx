@@ -25,17 +25,20 @@ const VisibleContainer = styled.div`
   width: 100%;
   max-width: ${props => props.maxWidth};
   min-height: ${props => (props.minHeight ? props.minHeight : "none")};
+  max-height: ${props => (props.maxHeight ? props.maxHeight : "none")};
   background-color: white;
   box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
     0 -14px 28px rgba(255, 255, 255, 0.22);
   padding: ${props => (props.padding ? props.padding : "0")};
   border-radius: 10px;
   text-align: ${props => (props.textAlign ? props.textAlign : "inherit")};
+  overflow: auto;
 `;
 
 interface IProps {
   padding?: string;
   minHeight?: string;
+  maxHeight?: string;
   textAlign?: string;
   maxWidth?: string;
 }
@@ -45,7 +48,8 @@ const Container: React.FC<IProps> = ({
   minHeight = "none",
   textAlign,
   children,
-  maxWidth
+  maxWidth,
+  maxHeight
 }) => {
   return (
     <MainContainer>
@@ -55,6 +59,7 @@ const Container: React.FC<IProps> = ({
           minHeight={minHeight}
           padding={padding}
           maxWidth={maxWidth}
+          maxHeight={maxHeight}
         >
           {children}
         </VisibleContainer>
