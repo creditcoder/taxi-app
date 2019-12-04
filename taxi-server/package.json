@@ -7,7 +7,11 @@
     "predev": "npm run types",
     "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
-    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts"
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api",
+    "start": "cd dist && node"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +32,9 @@
     "pg": "^7.12.1",
     "twilio": "^3.37.0",
     "typeorm": "^0.2.20"
+  },
+  "engines": {
+    "node": "10.15.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
